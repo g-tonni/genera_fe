@@ -1,6 +1,7 @@
 import { FaDiscord } from 'react-icons/fa6'
 import { FaFacebookSquare } from 'react-icons/fa'
 import { FaInstagramSquare } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 function MobileMenu({ panel, light }) {
   return (
@@ -9,21 +10,27 @@ function MobileMenu({ panel, light }) {
                    ${panel === 'menu' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
     >
       <div className="flex flex-col items-center justify-center py-30">
-        <p
-          className={`${light === 'Home' ? 'text-gray-50' : 'text-gray-50/60'} text-2xl pb-8 hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
-        >
-          Home
-        </p>
-        <p
-          className={`${light === 'Discover' ? 'text-gray-50' : 'text-gray-50/60'} text-2xl pb-8 hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
-        >
-          Discover
-        </p>
-        <p
-          className={`${light === 'About' ? 'text-gray-50' : 'text-gray-50/60'} text-2xl hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
-        >
-          About
-        </p>
+        <Link to={'/'}>
+          <p
+            className={`${light === 'Home' ? 'text-gray-50' : 'text-gray-50/60'} text-2xl pb-8 hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+          >
+            Home
+          </p>
+        </Link>
+        <Link to={'/discover'}>
+          <p
+            className={`${light === 'Discover' ? 'text-gray-50' : 'text-gray-50/60'} text-2xl pb-8 hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+          >
+            Discover
+          </p>
+        </Link>
+        <Link to={'/about'}>
+          <p
+            className={`${light === 'About' ? 'text-gray-50' : 'text-gray-50/60'} text-2xl hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+          >
+            About
+          </p>
+        </Link>
       </div>
 
       <hr className="border border-gray-50/10 w-full" />

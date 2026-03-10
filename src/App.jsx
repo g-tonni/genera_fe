@@ -1,5 +1,7 @@
 import Homepage from './components/Homepage'
 import DiscoverPage from './components/DiscoverPage'
+import AboutPage from './components/AboutPage'
+import ProfilePage from './components/ProfilePage'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 
 function App() {
@@ -9,6 +11,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/discover" element={<DiscoverPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>
