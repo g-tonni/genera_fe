@@ -7,7 +7,7 @@ function MobileMenu({ panel, light }) {
   return (
     <div
       className={`w-full bottom-0 pb-30 fixed z-10 bg-black transition-all duration-300 flex flex-col items-center justify-end md:justify-center
-                   ${panel === 'menu' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+                   ${panel === 'menu' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'} lg:hidden`}
     >
       <div className="flex flex-col items-center justify-center py-30">
         <Link to={'/'}>

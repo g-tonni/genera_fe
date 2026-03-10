@@ -13,7 +13,7 @@ function NavbarMobile({ light }) {
   return (
     <>
       <MobileMenu panel={panel} light={light} />
-      <MobileProfilePanel panel={panel} log={true} />
+      <MobileProfilePanel panel={panel} log={false} />
 
       <div className="fixed bottom-0 z-10 w-full h-20 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black flex lg:hidden justify-between items-center ">
         <div className="h-full w-6 cursor-pointer flex items-center">

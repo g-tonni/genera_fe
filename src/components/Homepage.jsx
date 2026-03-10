@@ -206,12 +206,14 @@ import BlackButton from './BlackButton'
 import P5Iframe from './P5Iframe'
 import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
+import FooterDesktop from './FooterDesktop'
 
 function Homepage() {
   return (
     <>
       <NavbarDesktop light="Home" />
       <NavbarMobile light="Home" />
+      <FooterDesktop />
 
       <div className="relative w-full h-screen text-gray-50">
         <P5Iframe p5Code={sketchCode} />

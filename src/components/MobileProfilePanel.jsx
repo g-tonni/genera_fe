@@ -11,9 +11,9 @@ function MobileProfilePanel({ panel, log }) {
       {log ? (
         <div
           className={`w-full bottom-0 pb-20 fixed z-10 bg-black transition-all duration-300 flex flex-col items-center justify-end md:justify-center
-                   ${panel === 'profile' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+                   ${panel === 'profile' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'} lg:hidden`}
         >
-          <div className="w-full flex flex-col justify-center py-15 px-10">
+          <div className="w-full flex flex-col justify-center py-15 px-10 md:px-20">
             <Link to={'/'}>
               <div className="flex items-center text-gray-50/60 pb-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
                 <VscAccount className="h-full w-6 flex items-center" />
@@ -36,22 +36,22 @@ function MobileProfilePanel({ panel, log }) {
 
           <hr className="border border-gray-50/10 w-full" />
 
-          <div className="w-full py-15 px-10">
+          <div className="w-full py-15 px-10 md:px-20">
             <OutlineButton text="SIGN OUT" size="sm" />
           </div>
         </div>
       ) : (
         <div
           className={`w-full bottom-0 pb-20 fixed z-10 bg-black transition-all duration-300 flex flex-col items-center justify-end md:justify-center
-                   ${panel === 'profile' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+                   ${panel === 'profile' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'} lg:hidden`}
         >
-          <div className="w-full py-15 px-10">
+          <div className="w-full py-15 px-10 md:px-20">
             <WhiteButton text="JOIN GENERA" size="lg" />
           </div>
 
           <hr className="border border-gray-50/10 w-full" />
 
-          <div className="w-full py-15 px-10">
+          <div className="w-full py-15 px-10 md:px-20">
             <p className="text-lg pb-4 text-gray-50/60">
               Already have an account?
             </p>
