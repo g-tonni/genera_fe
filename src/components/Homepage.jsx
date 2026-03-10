@@ -204,14 +204,19 @@ function draw() {
 import OutlineButton from './OutlineButton'
 import BlackButton from './BlackButton'
 import P5Iframe from './P5Iframe'
+import NavbarDesktop from './NavbarDesktop'
+import NavbarMobile from './NavbarMobile'
 
 function Homepage() {
   return (
     <>
+      <NavbarDesktop light="Home" />
+      <NavbarMobile light="Home" />
+
       <div className="relative w-full h-screen text-gray-50">
         <P5Iframe p5Code={sketchCode} />
         <div className="w-full px-12 md:px-20 xl:px-25 absolute bottom-0">
-          <div className="pb-12 md:pb-20 xl:pb-25">
+          <div className="pb-34 md:pb-38 lg:pb-20 xl:pb-25">
             <p className="font-semibold text-5xl md:text-6xl xl:text-7xl  fs-1">
               Genera
             </p>
