@@ -223,14 +223,14 @@ function Homepage() {
       </div>
 
       <div className="w-full">
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-center justify-between py-60">
-          <div className="w-1/3">
-            <p className="font-extrabold text-5xl md:text-6xl">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row lg:items-center justify-between py-60">
+          <div className="w-full lg:w-1/3">
+            <p className="font-extrabold text-4xl md:text-5xl 2xl:text-6xl">
               WHERE CODE BECOMES LIVING ART
             </p>
           </div>
-          <div className="w-2/3 ps-80">
-            <p className="text-xl">
+          <div className="w-full lg:w-2/3 lg:ps-20 2xl:ps-80">
+            <p className="pt-10 lg:pt-0 text-lg lg:text-xl">
               Discover, interact, and learn through code. Share your work on{' '}
               <span className="italic font-bold">Genera</span> and be part of a
               new generation of digital creators. Step into a world of
@@ -241,10 +241,10 @@ function Homepage() {
       </div>
 
       <div className="w-full bg-black text-gray-50">
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-end justify-between py-30">
-          <div className="w-2/3 pe-80">
-            <div className="pb-30">
-              <p className="font-extrabold text-5xl md:text-7xl">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row lg:items-end lg:justify-between py-30">
+          <div className="w-full lg:w-2/4 2xl:w-2/3 lg:pe-30 2xl:pe-80 pb-30 lg:pb-0">
+            <div className="pb-20 lg:pb-30">
+              <p className="font-extrabold text-5xl md:text-6xl 2xl:text-7xl">
                 GENERATIVE ART
               </p>
               <p className="text-xl pt-5">
@@ -254,20 +254,17 @@ function Homepage() {
             </div>
             <OutlineButton text="DISCOVER" />
           </div>
-          <div className="w-1/3 h-150">
+          <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
             <P5Iframe p5Code={sketchCode2} />
           </div>
         </div>
       </div>
 
       <div className="w-full bg-black text-gray-50">
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-end justify-between py-30">
-          <div className="w-1/3 h-150">
-            <P5Iframe p5Code={sketchCode2} />
-          </div>
-          <div className="w-2/3 ps-80">
-            <div className="pb-30 flex flex-col">
-              <p className="font-extrabold text-5xl md:text-7xl">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row-reverse lg:items-end lg:justify-between py-30">
+          <div className="w-full lg:w-2/4 2xl:w-2/3 lg:ps-30 2xl:ps-80 pb-30 lg:pb-0">
+            <div className="pb-20 lg:pb-30">
+              <p className="font-extrabold text-5xl md:text-6xl 2xl:text-7xl">
                 INTERACTIVE ART
               </p>
               <p className="text-xl pt-5">
@@ -276,18 +273,25 @@ function Homepage() {
                 dynamic and unpredictable outcomes.
               </p>
             </div>
-            <div className="w-full flex justify-end">
+
+            <div className="w-full flex lg:justify-start">
               <OutlineButton text="DISCOVER" />
             </div>
+          </div>
+
+          <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
+            <P5Iframe p5Code={sketchCode2} />
           </div>
         </div>
       </div>
 
       <div className="w-full bg-black text-gray-50">
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-end justify-between py-30">
-          <div className="w-2/3 pe-80">
-            <div className="pb-30">
-              <p className="font-extrabold text-5xl md:text-7xl">SPATIAL ART</p>
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row lg:items-end lg:justify-between py-30">
+          <div className="w-full lg:w-2/4 2xl:w-2/3 lg:pe-30 2xl:pe-80 pb-30 lg:pb-0">
+            <div className="pb-20 lg:pb-30">
+              <p className="font-extrabold text-5xl md:text-6xl 2xl:text-7xl">
+                SPATIAL ART
+              </p>
               <p className="text-xl pt-5">
                 3D expands generative creativity into space. Artists design
                 forms, environments and systems that evolve in depth, movement,
@@ -296,7 +300,7 @@ function Homepage() {
             </div>
             <OutlineButton text="DISCOVER" />
           </div>
-          <div className="w-1/3 h-150">
+          <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
             <P5Iframe p5Code={sketchCode2} />
           </div>
         </div>
@@ -314,16 +318,16 @@ function Homepage() {
       </div>
 
       <div className="w-full">
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-center justify-between pt-60">
-          <div className="w-2/5">
-            <p className="font-extrabold text-5xl md:text-5xl">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row lg:items-center justify-between pt-60">
+          <div className="w-full lg:w-2/5">
+            <p className="font-extrabold text-4xl 2xl:text-5xl">
               BUILT ON CURIOSITY
               <br />
               GROWN THROUGH SHARING
             </p>
           </div>
-          <div className="w-3/5 ps-80">
-            <p className="text-xl">
+          <div className="w-full lg:w-3/5 lg:ps-20 xl:ps-50 2xl:ps-80 pt-10 lg:pt-0">
+            <p className="text-lg lg:text-xl">
               Here, every artwork is a starting point for conversation.
               <br />
               We explore, learn trom one another, and push creative boundaries
@@ -331,8 +335,8 @@ function Homepage() {
             </p>
           </div>
         </div>
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-center justify-end pt-10 pb-60">
-          <div className="w-3/5 ps-80">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-center justify-end pt-25 lg:pt-10 pb-60">
+          <div className="w-full lg:w-3/5 lg:ps-20 xl:ps-50 2xl:ps-80">
             <BlackButton text="START CREATING" />
           </div>
         </div>
