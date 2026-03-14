@@ -1,5 +1,5 @@
 import { IoSearch } from 'react-icons/io5'
-import ProjectsCard from './ProjectsCard'
+import ProjectCard from './ProjectCard'
 
 function ProfileProjectsSection() {
   return (
@@ -21,15 +21,15 @@ function ProfileProjectsSection() {
 
       {/* SEZIONE CARD */}
       <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
-        <ProjectsCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
+        <ProjectCard />
       </div>
     </div>
   )

@@ -7,6 +7,7 @@ import { TiLocation } from 'react-icons/ti'
 import { FaLink } from 'react-icons/fa'
 import { useState } from 'react'
 import ProfileProjectsSection from './ProfileProjectsSection'
+import ProfileUsersSection from './ProfileUsersSection'
 
 function ProfilePage() {
   const sketchCode = `
@@ -159,7 +160,8 @@ function cerchio(x, y){
         </div>
 
         {/* SEZIONI */}
-        <ProfileProjectsSection />
+        {section === 'projects' && <ProfileProjectsSection />}
+        {section === 'connections' && <ProfileUsersSection />}
       </div>
     </>
   )

@@ -1,7 +1,7 @@
 import { BsArrowThroughHeart } from 'react-icons/bs'
 import { BiComment } from 'react-icons/bi'
 
-function ProjectsCard() {
+function ProjectCard() {
   return (
     <div className="w-full hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer">
       <div className="w-full aspect-square overflow-hidden">
@@ -48,4 +48,4 @@ function ProjectsCard() {
   )
 }
 
-export default ProjectsCard
+export default ProjectCard
