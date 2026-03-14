@@ -6,7 +6,7 @@ function ProjectCard() {
     <div className="w-full hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer">
       <div className="w-full aspect-square overflow-hidden">
         <img
-          src="https://res.cloudinary.com/cloudgiada/image/upload/v1770893078/main-sample.png"
+          src="https://res.cloudinary.com/cloudgiada/image/upload/v1772897894/immagini_default-20_wqtzqb.png"
           alt="Basic profile"
           className="w-full h-full object-cover"
         />
@@ -19,7 +19,7 @@ function ProjectCard() {
           <div className="flex items-center">
             <div className="w-5 aspect-square rounded-full overflow-hidden">
               <img
-                src="https://res.cloudinary.com/cloudgiada/image/upload/v1770893078/main-sample.png"
+                src="https://res.cloudinary.com/cloudgiada/image/upload/v1772903135/ggfstlipbuzzh1hu1nmw.png"
                 alt="Basic profile"
                 className="w-full h-full object-cover"
               />

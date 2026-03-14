@@ -57,7 +57,7 @@ function cerchio(x, y){
           <div className="w-full mx-auto px-12 md:px-20 xl:px-25 absolute bottom-0 flex items-center translate-y-1/2">
             <div className="w-1/3 md:w-1/4 2xl:w-1/6 aspect-square rounded-full overflow-hidden">
               <img
-                src="https://res.cloudinary.com/cloudgiada/image/upload/v1770893078/main-sample.png"
+                src="https://res.cloudinary.com/cloudgiada/image/upload/v1772903135/ggfstlipbuzzh1hu1nmw.png"
                 alt="Basic profile"
                 className="w-full h-full object-cover"
               />
