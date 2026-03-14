@@ -9,9 +9,9 @@ function NavbarDesktop({ light }) {
 
   return (
     <>
-      <DesktopProfilePanel panel={panel} log={false} />
+      <DesktopProfilePanel panel={panel} log={true} />
 
-      <div className="fixed z-10 w-full h-20 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black hidden lg:flex justify-between items-center ">
+      <div className="fixed z-10 w-full h-16 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black hidden lg:flex justify-between items-center ">
         <div className="flex items-center w-1/3">
           <div className="h-full w-5">
             <Link to={'/'}>

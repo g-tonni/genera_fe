@@ -10,7 +10,7 @@ function DesktopProfilePanel({ panel, log }) {
     <>
       {log ? (
         <div
-          className={`w-80 end-0 top-0 pt-20 fixed z-10 bg-neutral-900 transition-all duration-300 hidden lg:flex flex-col
+          className={`w-80 end-0 top-0 pt-16 fixed z-10 bg-neutral-900 transition-all duration-300 hidden lg:flex flex-col
                    ${panel === 'profile' ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
         >
           <div className="w-full flex flex-col justify-center py-6 px-6">
@@ -42,7 +42,7 @@ function DesktopProfilePanel({ panel, log }) {
         </div>
       ) : (
         <div
-          className={`w-80 end-0 top-0 pt-20 fixed z-10 bg-neutral-900 transition-all duration-300 hidden lg:flex flex-col items-center justify-end md:justify-center
+          className={`w-80 end-0 top-0 pt-16 fixed z-10 bg-neutral-900 transition-all duration-300 hidden lg:flex flex-col items-center justify-end md:justify-center
                    ${panel === 'profile' ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
         >
           <div className="w-full py-6 px-6">
