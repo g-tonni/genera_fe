@@ -105,7 +105,7 @@ function RegisterPage() {
       <div className="w-full h-screen relative">
         <P5Iframe p5Code={sketchCode} />
         <div className="w-full h-screen absolute top-0 left-0 mx-auto px-12 md:px-20 xl:px-25 flex justify-center items-center">
-          <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 px-10 py-15 bg-neutral-900 text-gray-50">
+          <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 2xl:w-1/4 px-10 py-15 bg-neutral-900 text-gray-50">
             <p className="font-semibold text-2xl">Join Genera</p>
             <p className="text-xs pb-10">
               Already have an account?{" "}

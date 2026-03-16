@@ -77,8 +77,17 @@ function DiscoverPage() {
 
         {/* SEZIONI */}
       </div>
-      <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bg-black text-gray-50">
+      <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bg-black text-gray-50 pb-30">
         <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
           <ProjectCard />
           <ProjectCard />
           <ProjectCard />

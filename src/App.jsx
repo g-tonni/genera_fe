@@ -4,6 +4,7 @@ import AboutPage from './components/AboutPage'
 import ProfilePage from './components/ProfilePage'
 import RegisterPage from './components/RegisterPage'
 import LoginPage from './components/LoginPage'
+import EditProfilePage from './components/EditProfilePage'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/profile/:id/edit" element={<EditProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>
