@@ -3,7 +3,8 @@ import NavbarMobile from "./NavbarMobile";
 import FooterDesktop from "./FooterDesktop";
 import OutlineButton from "./OutlineButton";
 import P5Iframe from "./P5Iframe";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const sketchCode = `
 let pos;
@@ -96,6 +97,40 @@ function windowResized() {
 `;
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const [body, setBody] = useState({
+    email: "",
+    password: "",
+  });
+
+  const url = "http://localhost:3001/auth/login";
+
+  const login = function (body) {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Errore nella response");
+        }
+      })
+      .then((data) => {
+        // console.log(data);
+        localStorage.setItem("token", data.token);
+        navigate(`/profile/${data.userId}`);
+      })
+      .catch((err) => {
+        console.log("ERRORE: ", err);
+      });
+  };
+
   return (
     <>
       <NavbarDesktop light="Home" />
@@ -113,16 +148,35 @@ function LoginPage() {
                 Join Genera
               </Link>
             </p>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                login(body);
+              }}
+            >
               <label className="text-gray-50/50 font-semibold">Email</label>
               <input
                 type="email"
                 className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                value={body.email}
+                onChange={(e) => {
+                  setBody({
+                    ...body,
+                    email: e.target.value,
+                  });
+                }}
               />
               <label className="text-gray-50/50 font-semibold">Password</label>
               <input
                 type="password"
                 className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-15"
+                value={body.password}
+                onChange={(e) => {
+                  setBody({
+                    ...body,
+                    password: e.target.value,
+                  });
+                }}
               />
               <div className="flex justify-center">
                 <button

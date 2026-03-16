@@ -1,7 +1,7 @@
 import { BsArrowThroughHeart } from 'react-icons/bs'
 import { BiComment } from 'react-icons/bi'
 
-function ProjectCard() {
+function ProjectCard({project}) {
   return (
     <div className="w-full hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer">
       <div className="w-full aspect-square overflow-hidden">
@@ -13,7 +13,7 @@ function ProjectCard() {
       </div>
       <div className="flex flex-col">
         <p className="font-bold border-b border-gray-50/30 py-4">
-          Project name
+          {project.title}
         </p>
         <div className="flex items-center py-4 justify-between text-gray-50/70">
           <div className="flex items-center">
@@ -25,7 +25,7 @@ function ProjectCard() {
               />
             </div>
             <p className="text-xs lg:text-sm ps-2 whitespace-nowrap hover:text-gray-50 transition-colors duration-150 cursor-pointer">
-              Giada Tonni
+              {project.author.username}
             </p>
           </div>
           <div className="flex items-center">

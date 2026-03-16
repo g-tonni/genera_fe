@@ -3,7 +3,8 @@ import NavbarMobile from "./NavbarMobile";
 import FooterDesktop from "./FooterDesktop";
 import OutlineButton from "./OutlineButton";
 import P5Iframe from "./P5Iframe";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const sketchCode = `
 let pos;
@@ -96,6 +97,41 @@ function windowResized() {
 `;
 
 function RegisterPage() {
+
+  const navigate = useNavigate();
+
+  const [body, setBody] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const url = "http://localhost:3001/auth/register";
+
+  const register = function (body) {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Errore nella response");
+        }
+      })
+      .then((data) => {
+        // console.log(data);
+        navigate(`/login`);
+      })
+      .catch((err) => {
+        console.log("ERRORE: ", err);
+      });
+  };
+
   return (
     <>
       <NavbarDesktop light="Home" />
@@ -113,23 +149,58 @@ function RegisterPage() {
                 Sign in
               </Link>
             </p>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                register(body);
+              }}
+            >
               <label className="text-gray-50/50 font-semibold">Name</label>
               <input
                 type="text"
                 className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                value={body.name}
+                onChange={(e) => {
+                  setBody({
+                    ...body,
+                    name: e.target.value,
+                  });
+                }}
               />
               <label className="text-gray-50/50 font-semibold">Email</label>
               <input
                 type="email"
                 className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                value={body.email}
+                onChange={(e) => {
+                  setBody({
+                    ...body,
+                    email: e.target.value,
+                  });
+                }}
               />
               <label className="text-gray-50/50 font-semibold">Password</label>
               <input
                 type="password"
                 className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-15"
+                value={body.password}
+                onChange={(e) => {
+                  setBody({
+                    ...body,
+                    password: e.target.value,
+                  });
+                }}
               />
-              <p className="text-xs pb-3">By joining Genera, you agree to the <Link to={"/"} className="font-bold">Terms of Service</Link> and <Link to={"/"} className="font-bold">Privacy Policy</Link></p>
+              <p className="text-xs pb-3">
+                By joining Genera, you agree to the{" "}
+                <Link to={"/"} className="font-bold">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link to={"/"} className="font-bold">
+                  Privacy Policy
+                </Link>
+              </p>
               <button
                 type="submit"
                 className="w-full bg-white border-3 border-white text-black font-bold shadow-2xl hover:bg-black hover:text-gray-50 transition-colors duration-150 cursor-pointer py-2"

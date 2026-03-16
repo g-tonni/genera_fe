@@ -1,7 +1,48 @@
 import { IoSearch } from 'react-icons/io5'
 import ProjectCard from './ProjectCard'
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
-function ProfileProjectsSection() {
+function ProfileProjectsSection({section}) {
+
+  const [projects, setProjects] = useState(null)
+
+  const [partialTitle, setPartialTitle] = useState("")
+
+  const params = useParams()
+
+   const baseUrl = 'http://localhost:3001/users/' + params.id + '/'
+
+   const token = localStorage.getItem("token");
+
+   const getProjects = function(){
+    fetch(baseUrl + section + '?partialTitle=' + partialTitle, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    .then((res) => {
+      if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Errore nella response");
+        }
+    })
+    .then((data) => {
+        console.log(data);
+        setProjects(data)
+      })
+      .catch((err) => {
+        console.log("ERRORE: ", err);
+      });
+   }
+
+
+   useEffect(() => {
+    getProjects()
+   }, [section, partialTitle, params.id])
+
   return (
     <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50">
       {/*  BARRA RICERCA */}
@@ -15,21 +56,24 @@ function ProfileProjectsSection() {
             type="search"
             placeholder="Search projects..."
             className="w-full bg-neutral-900 text-gray-50 ps-10 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            value={partialTitle}
+            onChange={(e) => {
+              setPartialTitle(e.target.value)
+            }}
           />
         </div>
       </div>
 
       {/* SEZIONE CARD */}
       <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+        { projects && (
+          projects.content.map((project) => {
+              return (
+                <ProjectCard project={project}/>
+              )
+          })
+        )
+       }
       </div>
     </div>
   )

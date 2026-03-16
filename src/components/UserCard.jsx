@@ -1,4 +1,4 @@
-function UserCard() {
+function UserCard({user}) {
   return (
     <div className="w-full flex items-center hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer">
       <div className="w-1/4 aspect-square rounded-full overflow-hidden">
@@ -9,7 +9,7 @@ function UserCard() {
         />
       </div>
       <div className="flex flex-col ps-6">
-        <p className="text-lg font-semibold">Artist name</p>
+        <p className="text-lg font-semibold">{user.followed.username}</p>
         <p className="font-thin text-sm whitespace-nowrap">
           <span className="font-medium">27</span> projects,{' '}
           <span className="font-medium">30</span> supporters
