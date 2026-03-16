@@ -2,10 +2,43 @@ import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
 import FooterDesktop from "./FooterDesktop";
 import ProjectCard from "./ProjectCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function DiscoverPage() {
-  const [section, setSection] = useState("generative");
+  const [section, setSection] = useState("Generative");
+
+  const [projects, setProjects] = useState(null);
+
+  const baseUrl = "http://localhost:3001/projects";
+
+  const token = localStorage.getItem("token");
+
+  const getProjects = function () {
+    fetch(baseUrl + "?category=" + section, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Errore nella response");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setProjects(data);
+      })
+      .catch((err) => {
+        console.log("ERRORE: ", err);
+      });
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, [section]);
 
   return (
     <>
@@ -22,9 +55,9 @@ function DiscoverPage() {
             {/* BOX PER BOTTONI */}
             <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex text-gray-50">
               <div
-                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "generative" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
+                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "Generative" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
-                  setSection("generative");
+                  setSection("Generative");
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -32,9 +65,9 @@ function DiscoverPage() {
                 </p>
               </div>
               <div
-                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "interactive" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
+                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "Interactive" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
-                  setSection("interactive");
+                  setSection("Interactive");
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -42,9 +75,9 @@ function DiscoverPage() {
                 </p>
               </div>
               <div
-                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "spatials" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
+                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "Spatial" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
-                  setSection("spatials");
+                  setSection("Spatial");
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -52,9 +85,9 @@ function DiscoverPage() {
                 </p>
               </div>
               <div
-                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "patterns" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
+                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "Patterns" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
-                  setSection("patterns");
+                  setSection("Patterns");
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -62,9 +95,9 @@ function DiscoverPage() {
                 </p>
               </div>
               <div
-                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "particles" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
+                className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === "Particles" ? "bg-gray-50/20 border-b-2 " : "bg-transparent"} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
-                  setSection("particles");
+                  setSection("Particles");
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -77,26 +110,12 @@ function DiscoverPage() {
 
         {/* SEZIONI */}
       </div>
-      <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bg-black text-gray-50 pb-30">
+      <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bg-black text-gray-50 pb-30 min-h-screen">
         <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
-          <ProjectCard />
+          {projects &&
+            projects.content.map((project) => {
+              return <ProjectCard project={project} />;
+            })}
         </div>
       </div>
     </>

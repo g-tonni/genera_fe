@@ -45,7 +45,7 @@ function ProfileUsersSection({section}) {
 
 
   return (
-    <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50">
+    <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50 min-h-screen">
       {/*  BARRA RICERCA */}
       <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 flex py-15">
         <div className="relative w-full h-full">
