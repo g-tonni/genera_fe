@@ -124,7 +124,7 @@ function RegisterPage() {
         }
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         navigate(`/login`);
       })
       .catch((err) => {

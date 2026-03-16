@@ -41,6 +41,7 @@ function ProfileProjectsSection({section}) {
 
    useEffect(() => {
     getProjects()
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [section, partialTitle, params.id])
 
   return (

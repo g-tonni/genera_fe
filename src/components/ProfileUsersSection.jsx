@@ -41,6 +41,7 @@ function ProfileUsersSection({section}) {
 
    useEffect(() => {
     getUsers()
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [section, partialName, params.id])
 
 
