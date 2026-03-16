@@ -4,8 +4,15 @@ import WhiteButton from './WhiteButton'
 import { VscAccount } from 'react-icons/vsc'
 import { FaEdit } from 'react-icons/fa'
 import { FaRegImage } from 'react-icons/fa6'
+import { useSelector } from 'react-redux'
 
 function DesktopProfilePanel({ panel, log }) {
+
+  const userId = useSelector((currState) => {
+    return currState.authReducer.userId
+  })
+
+
   return (
     <>
       {log ? (
@@ -14,13 +21,13 @@ function DesktopProfilePanel({ panel, log }) {
                    ${panel === 'profile' ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
         >
           <div className="w-full flex flex-col justify-center py-6 px-6">
-            <Link to={'/'}>
+            <Link to={`/profile/${userId}`}>
               <div className="flex items-center text-gray-50/60 pb-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
                 <VscAccount className="h-full w-5 flex items-center" />
                 <p className="text-sm ps-4">View my profile</p>
               </div>
             </Link>
-            <Link to={'/'}>
+            <Link to={`/profile/${userId}/edit`}>
               <div className="flex items-center text-gray-50/60 pb-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
                 <FaEdit className="h-full w-5 flex items-center" />
                 <p className="text-sm ps-4">Edit profile</p>

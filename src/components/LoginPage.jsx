@@ -5,6 +5,8 @@ import OutlineButton from "./OutlineButton";
 import P5Iframe from "./P5Iframe";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToken, addUserId } from "../redux/actions/loginAction";
 
 const sketchCode = `
 let pos;
@@ -97,6 +99,9 @@ function windowResized() {
 `;
 
 function LoginPage() {
+
+  const dispatch = useDispatch()
+
   const navigate = useNavigate();
 
   const [body, setBody] = useState({
@@ -124,6 +129,9 @@ function LoginPage() {
       .then((data) => {
         // console.log(data);
         localStorage.setItem("token", data.token);
+        dispatch(addToken(data.token))
+        localStorage.setItem("userId", data.userId);
+        dispatch(addUserId(data.userId))
         navigate(`/profile/${data.userId}`);
       })
       .catch((err) => {

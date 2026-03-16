@@ -4,8 +4,14 @@ import WhiteButton from './WhiteButton'
 import { VscAccount } from 'react-icons/vsc'
 import { FaEdit } from 'react-icons/fa'
 import { FaRegImage } from 'react-icons/fa6'
+import { useSelector } from 'react-redux'
 
 function MobileProfilePanel({ panel, log }) {
+
+    const userId = useSelector((currState) => {
+    return currState.authReducer.userId
+  })
+
   return (
     <>
       {log ? (
@@ -14,13 +20,13 @@ function MobileProfilePanel({ panel, log }) {
                    ${panel === 'profile' ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'} lg:hidden`}
         >
           <div className="w-full flex flex-col justify-center py-15 px-10 md:px-20">
-            <Link to={'/'}>
+            <Link to={`/profile/${userId}`}>
               <div className="flex items-center text-gray-50/60 pb-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
                 <VscAccount className="h-full w-6 flex items-center" />
                 <p className="text-lg ps-4">View my profile</p>
               </div>
             </Link>
-            <Link to={'/'}>
+            <Link to={`/profile/${userId}/edit`}>
               <div className="flex items-center text-gray-50/60 pb-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
                 <FaEdit className="h-full w-6 flex items-center" />
                 <p className="text-lg ps-4">Edit profile</p>

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import ProfileProjectsSection from "./ProfileProjectsSection";
 import ProfileUsersSection from "./ProfileUsersSection";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ProfilePage() {
   const params = useParams();
@@ -17,7 +18,9 @@ function ProfilePage() {
 
   const [section, setSection] = useState("projects");
 
-  const token = localStorage.getItem("token");
+  const token = useSelector((currState) => {
+    return currState.authReducer.token
+  })
 
   const [user, setUser] = useState({
     bio: "",

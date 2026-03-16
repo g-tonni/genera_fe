@@ -3,13 +3,18 @@ import { IoSearch } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import DesktopProfilePanel from './DesktopProfilePanel'
+import { useSelector } from 'react-redux'
 
 function NavbarDesktop({ light }) {
   const [panel, setPanel] = useState('')
 
+  const token = useSelector((currState) => {
+    return currState.authReducer.token
+  })
+
   return (
     <>
-      <DesktopProfilePanel panel={panel} log={true} />
+      <DesktopProfilePanel panel={panel} log={token} />
 
       <div className="fixed z-10 w-full h-16 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black hidden lg:flex justify-between items-center ">
         <div className="flex items-center w-1/3">
