@@ -2,6 +2,8 @@ import Homepage from './components/Homepage'
 import DiscoverPage from './components/DiscoverPage'
 import AboutPage from './components/AboutPage'
 import ProfilePage from './components/ProfilePage'
+import RegisterPage from './components/RegisterPage'
+import LoginPage from './components/LoginPage'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
           <Route path="/discover" element={<DiscoverPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </>
