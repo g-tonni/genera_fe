@@ -1,16 +1,77 @@
 import { VscAccount } from 'react-icons/vsc'
 import { IoSearch } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DesktopProfilePanel from './DesktopProfilePanel'
 import { useSelector } from 'react-redux'
 
 function NavbarDesktop({ light }) {
   const [panel, setPanel] = useState('')
 
+  const [partialSearch, setPartialSearch] = useState('')
+
+  const [users, setUsers] = useState([])
+  const [projects, setProjects] = useState([])
+
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
+
+  const baseUrl = 'http://localhost:3001/'
+
+  const getUsers = function () {
+    fetch(baseUrl + 'users?partialName=' + partialSearch, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log('USERS', data)
+        setUsers(data.content)
+      })
+      .catch((err) => {
+        console.log('ERROR', err)
+      })
+  }
+
+  const getProjects = function () {
+    fetch(baseUrl + 'projects?partialTitle=' + partialSearch, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log('PROJECTS', data)
+        setProjects(data.content)
+      })
+      .catch((err) => {
+        console.log('ERROR', err)
+      })
+  }
+
+  useEffect(() => {
+    if (partialSearch.length >= 3) {
+      getUsers()
+      getProjects()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [partialSearch])
 
   return (
     <>
@@ -59,6 +120,10 @@ function NavbarDesktop({ light }) {
               type="search"
               placeholder="Search projects, users..."
               className="w-full bg-neutral-900 text-gray-50 ps-10 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+              value={partialSearch}
+              onChange={(e) => {
+                setPartialSearch(e.target.value)
+              }}
             />
           </div>
         </div>
@@ -80,6 +145,75 @@ function NavbarDesktop({ light }) {
           </div>
         </div>
       </div>
+
+      {partialSearch.length >= 3 && (
+        <div className="w-1/3 z-2 fixed left-1/2 -translate-x-1/2 translate-y-20 lg:px-6 xl:px-8 text-gray-50/50 text-sm hidden lg:flex justify-center">
+          <div className="w-full 2xl:w-2/3 bg-neutral-900 p-5">
+            <div className="w-full pb-6">
+              <p className="font-semibold pb-3">
+                Projects (<span>{projects.length}</span>)
+              </p>
+              {projects.length === 0 ? (
+                <div className="w-full border text-center py-3">
+                  No projects found for your search
+                </div>
+              ) : (
+                projects.map((projects) => {
+                  return (
+                    <Link key={projects.projectId} to={'/'}>
+                      <div className="w-full flex items-center hover:bg-gray-50/20 text-gray-50 p-2 transition-colors duration-220 cursor-pointer">
+                        <div className="w-6 aspect-square overflow-hidden">
+                          <img
+                            src={projects.cover}
+                            alt="Cover project"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+
+                        <p className="ps-3 text-gray-50/80 font-semibold">
+                          {projects.title}{' '}
+                          <span className="font-thin text-xs">
+                            by{' '}
+                            <span className="italic">
+                              {projects.author.username}
+                            </span>
+                          </span>
+                        </p>
+                      </div>
+                    </Link>
+                  )
+                })
+              )}
+            </div>
+            <p className="font-semibold pb-3">
+              Users (<span>{users.length}</span>)
+            </p>
+            {users.length === 0 ? (
+              <div className="w-full border text-center py-3">
+                No users found for your search
+              </div>
+            ) : (
+              users.map((user) => {
+                return (
+                  <Link key={user.userId} to={`/profile/${user.userId}`}>
+                    <div className="w-full flex items-center hover:bg-gray-50/20 text-gray-50 p-2 transition-colors duration-220 cursor-pointer">
+                      <div className="w-6 aspect-square rounded-full overflow-hidden">
+                        <img
+                          src={user.profileImage}
+                          alt="Profile image"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <p className="ps-3 text-gray-50/80">{user.username}</p>
+                    </div>
+                  </Link>
+                )
+              })
+            )}
+          </div>
+        </div>
+      )}
     </>
   )
 }
