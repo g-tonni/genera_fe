@@ -1,6 +1,15 @@
-function UserCard({user}) {
+import { useNavigate } from 'react-router-dom'
+
+function UserCard({ user }) {
+  const navigate = useNavigate()
+
   return (
-    <div className="w-full flex items-center hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer">
+    <div
+      className="w-full flex items-center hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer"
+      onClick={() => {
+        navigate(`/profile/${user.userId}`)
+      }}
+    >
       <div className="w-1/4 aspect-square rounded-full overflow-hidden">
         <img
           src="https://res.cloudinary.com/cloudgiada/image/upload/v1772903135/ggfstlipbuzzh1hu1nmw.png"

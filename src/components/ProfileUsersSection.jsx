@@ -2,48 +2,47 @@ import { IoSearch } from 'react-icons/io5'
 import UserCard from './UserCard'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-function ProfileUsersSection({section}) {
-
+function ProfileUsersSection({ section }) {
   const [users, setUsers] = useState(null)
 
-  const [partialName, setPartialName] = useState("")
+  const [partialName, setPartialName] = useState('')
 
   const params = useParams()
 
-   const baseUrl = 'http://localhost:3001/users/' + params.id + '/' + section
+  const baseUrl = 'http://localhost:3001/users/' + params.id + '/' + section
 
-   const token = localStorage.getItem("token");
-
-   const getUsers = function(){
-    fetch(baseUrl + "?partialName=" + partialName, {
-      method: "GET",
+  const token = useSelector((currState) => {
+    return currState.authReducer.token
+  })
+  const getUsers = function () {
+    fetch(baseUrl + '?partialName=' + partialName, {
+      method: 'GET',
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
     })
-    .then((res) => {
-      if (res.ok) {
-          return res.json();
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
         } else {
-          throw new Error("Errore nella response");
+          throw new Error('Errore nella response')
         }
-    })
-    .then((data) => {
-        console.log(data);
+      })
+      .then((data) => {
+        console.log(data)
         setUsers(data)
       })
       .catch((err) => {
-        console.log("ERRORE: ", err);
-      });
-   }
+        console.log('ERRORE: ', err)
+      })
+  }
 
-
-   useEffect(() => {
+  useEffect(() => {
     getUsers()
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [section, partialName, params.id])
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section, partialName, params.id])
 
   return (
     <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50 min-h-screen">
@@ -68,16 +67,10 @@ function ProfileUsersSection({section}) {
 
       {/* SEZIONE CARD */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
-       {
-        users && (
+        {users &&
           users.content.map((user) => {
-            return(
-
-              <UserCard user={user}/>
-            )
-          })
-        )
-       }
+            return <UserCard user={user} />
+          })}
       </div>
     </div>
   )

@@ -10,11 +10,14 @@ import ProfileProjectsSection from './ProfileProjectsSection'
 import ProfileUsersSection from './ProfileUsersSection'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import WhiteButton from './WhiteButton'
 
 function ProfilePage() {
   const params = useParams()
 
   const baseUrl = 'http://localhost:3001/users/'
+
+  const [followed, setFollowed] = useState(null)
 
   const [section, setSection] = useState('projects')
 
@@ -71,10 +74,58 @@ function ProfilePage() {
       })
   }
 
+  const addConnection = function () {
+    fetch(baseUrl + params.id + '/connections', {
+      method: followed ? 'DELETE' : 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setFollowed(!followed)
+          getUser()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
+  const getMyConnections = function () {
+    fetch(baseUrl + 'me/connections', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log('CONNECTIONS', data)
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].userId === params.id) {
+            setFollowed(true)
+          }
+        }
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
   useEffect(() => {
     getUser()
+    getMyConnections()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.id])
+  }, [params.id, followed])
 
   return (
     <>
@@ -134,9 +185,24 @@ function ProfilePage() {
               </div>
               {/* DIV SUPPORT */}
               <div className="w-full lg:w-1/2 flex items-end justify-end pt-10">
-                <div className={`${params.id === userId ? 'hidden' : 'flex'}`}>
-                  <OutlineButton text="SUPPORT" size="md" />
-                </div>
+                {params.id !== userId && !followed && (
+                  <div
+                    onClick={() => {
+                      addConnection()
+                    }}
+                  >
+                    <OutlineButton text="SUPPORT" size="md" />
+                  </div>
+                )}
+                {params.id !== userId && followed && (
+                  <div
+                    onClick={() => {
+                      addConnection()
+                    }}
+                  >
+                    <WhiteButton text="SUPPORTED YET" size="md" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
