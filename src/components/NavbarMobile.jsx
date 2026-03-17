@@ -1,7 +1,7 @@
 import { VscAccount } from 'react-icons/vsc'
 import { IoSearch } from 'react-icons/io5'
 import { IoMenuSharp } from 'react-icons/io5'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import MobileMenu from './MobileMenu'
@@ -13,20 +13,12 @@ function NavbarMobile({ light }) {
 
   const [partialSearch, setPartialSearch] = useState('')
 
-  const panelRef = useRef(null)
-
   const [users, setUsers] = useState([])
   const [projects, setProjects] = useState([])
 
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
-
-  const handleClickOutside = (event) => {
-    if (panelRef.current && !panelRef.current.contains(event.target)) {
-      setPanel('')
-    }
-  }
 
   const baseUrl = 'http://localhost:3001/'
 
@@ -80,12 +72,6 @@ function NavbarMobile({ light }) {
     if (partialSearch.length >= 3) {
       getUsers()
       getProjects()
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partialSearch])
@@ -147,7 +133,7 @@ function NavbarMobile({ light }) {
       </div>
 
       {panel === 'search' && (
-        <div ref={panelRef} className="w-full fixed flex justify-center z-3">
+        <div className="w-full fixed flex justify-center z-3">
           <div className="w-full sm:w-1/2 flex justify-center m-3">
             <div className="relative w-full 2xl:w-2/3 h-full">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
@@ -168,10 +154,7 @@ function NavbarMobile({ light }) {
 
           {partialSearch.length >= 3 && (
             <div className="w-full fixed flex justify-center z-2 translate-y-14 text-gray-50/50 lg:hidden">
-              <div
-                ref={panelRef}
-                className="w-full sm:w-1/2 m-3 bg-neutral-900 p-5"
-              >
+              <div className="w-full sm:w-1/2 m-3 bg-neutral-900 p-5">
                 <div className="w-full pb-6">
                   <p className="font-semibold pb-3">
                     Projects (<span>{projects.length}</span>)
