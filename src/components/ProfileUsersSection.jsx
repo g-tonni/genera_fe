@@ -31,7 +31,7 @@ function ProfileUsersSection({ section }) {
         }
       })
       .then((data) => {
-        console.log(data)
+        console.log('USERS', data)
         setUsers(data)
       })
       .catch((err) => {
@@ -68,8 +68,14 @@ function ProfileUsersSection({ section }) {
       {/* SEZIONE CARD */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
         {users &&
+          section === 'connections' &&
           users.content.map((user) => {
-            return <UserCard user={user} />
+            return <UserCard user={user.followed} />
+          })}
+        {users &&
+          section === 'supporters' &&
+          users.content.map((user) => {
+            return <UserCard user={user.follower} />
           })}
       </div>
     </div>

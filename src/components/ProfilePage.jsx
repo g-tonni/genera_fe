@@ -187,6 +187,7 @@ function ProfilePage() {
               <div className="w-full lg:w-1/2 flex items-end justify-end pt-10">
                 {params.id !== userId && !followed && (
                   <div
+                    className="z-1"
                     onClick={() => {
                       addConnection()
                     }}
@@ -196,6 +197,7 @@ function ProfilePage() {
                 )}
                 {params.id !== userId && followed && (
                   <div
+                    className="z-1"
                     onClick={() => {
                       addConnection()
                     }}

@@ -18,7 +18,7 @@ function UserCard({ user }) {
         />
       </div>
       <div className="flex flex-col ps-6">
-        <p className="text-lg font-semibold">{user.followed.username}</p>
+        <p className="text-lg font-semibold">{user.username}</p>
         <p className="font-thin text-sm whitespace-nowrap">
           <span className="font-medium">27</span> projects,{' '}
           <span className="font-medium">30</span> supporters
