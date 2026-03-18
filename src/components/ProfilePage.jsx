@@ -110,11 +110,9 @@ function ProfilePage() {
       })
       .then((data) => {
         console.log('CONNECTIONS', data)
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].userId === params.id) {
-            setFollowed(true)
-          }
-        }
+        const isFollowed = data.some((user) => user.userId === params.id)
+
+        setFollowed(isFollowed)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)

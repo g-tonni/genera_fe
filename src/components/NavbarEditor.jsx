@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { VscAccount } from 'react-icons/vsc'
 import { TbCodeCircle } from 'react-icons/tb'
 import { HiOutlineInformationCircle } from 'react-icons/hi'
@@ -15,6 +15,11 @@ import CommentsPanel from './CommentsPanel'
 function NavbarEditor({ light, project, setPage }) {
   const [panel, setPanel] = useState('')
 
+  const params = useParams()
+
+  const [appreciations, setAppreciations] = useState(null)
+  const [appreciated, setAppreciated] = useState(false)
+
   const [commentsNavbar, setCommentsNavbar] = useState(0)
 
   const token = useSelector((currState) => {
@@ -24,6 +29,58 @@ function NavbarEditor({ light, project, setPage }) {
   const userId = useSelector((currState) => {
     return currState.authReducer.userId
   })
+
+  const url = `http://localhost:3001/projects/${params.id}/appreciations`
+
+  const getAppreciations = function () {
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log('APPRECIATIONS ', data)
+        setAppreciations(data)
+        const isAppreciated = data.some((app) => app.user.userId === userId)
+
+        setAppreciated(isAppreciated)
+      })
+      .catch((err) => {
+        console.log('ERRORE :', err)
+      })
+  }
+
+  const addOrRemoveAppreciation = function () {
+    fetch(url, {
+      method: appreciated ? 'DELETE' : 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          getAppreciations()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .catch((err) => {
+        console.log('ERRORE :', err)
+      })
+  }
+
+  useEffect(() => {
+    getAppreciations()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id])
 
   return (
     <>
@@ -93,8 +150,26 @@ function NavbarEditor({ light, project, setPage }) {
 
         <div className="w-1/3 flex justify-end text-gray-50/60">
           <div className="flex items-center pe-4">
-            <p className="text-base font-semibold pe-1 lg:pe-2">10</p>
-            <FaRegHeart className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+            <p className="text-base font-semibold pe-1 lg:pe-2">
+              {appreciations?.length}
+            </p>
+            {appreciated ? (
+              <div
+                onClick={() => {
+                  addOrRemoveAppreciation()
+                }}
+              >
+                <FaHeart className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  addOrRemoveAppreciation()
+                }}
+              >
+                <FaRegHeart className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+              </div>
+            )}
           </div>
           <div className="flex items-center pe-4">
             <p className="text-base font-semibold pe-1 lg:pe-2">
