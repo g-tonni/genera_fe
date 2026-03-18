@@ -82,7 +82,7 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
 
   return (
     <div
-      className={`w-80 h-full inset-e-0 top-0 pt-22 pb-10 px-5 fixed z-10 bg-neutral-900 transition-all duration-300 flex flex-col text-gray-50/60
+      className={`w-full sm:w-80 h-full inset-e-0 top-0 pt-22 pb-10 px-5 fixed z-10 bg-neutral-900 transition-all duration-300 flex flex-col text-gray-50/60
                    ${panel === 'comments' ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
     >
       <div className="w-full overflow-y-auto grow">

@@ -11,6 +11,7 @@ import { FaRegHeart } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa6'
 import DesktopProfilePanel from './DesktopProfilePanel'
 import CommentsPanel from './CommentsPanel'
+import MobileProfilePanel from './MobileProfilePanel'
 
 function NavbarEditor({ light, project, setPage }) {
   const [panel, setPanel] = useState('')
@@ -86,9 +87,10 @@ function NavbarEditor({ light, project, setPage }) {
     <>
       <DesktopProfilePanel panel={panel} log={token} />
       <CommentsPanel panel={panel} setCommentsNavbar={setCommentsNavbar} />
+      <MobileProfilePanel panel={panel} log={token} />
 
       <div className="fixed z-10 w-full h-16 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black flex justify-between items-center ">
-        <div className="flex items-center w-1/3">
+        <div className="flex items-center w-full lg:w-1/3">
           <div className="h-full w-5">
             <Link to={'/'}>
               <img
@@ -98,10 +100,10 @@ function NavbarEditor({ light, project, setPage }) {
             </Link>
           </div>
           <div className="flex text-gray-50/60 items-center">
-            <p className="ps-4 font-semibold text-lg text-gray-50/80">
+            <p className="ps-4 font-semibold lg:text-lg text-gray-50/80">
               {project.title}{' '}
               <Link to={`/profile/${project.author.userId}`}>
-                <span className="font-thin text-sm text-gray-50/60 hover:text-gray-50/80">
+                <span className="font-thin text-xs lg:text-sm text-gray-50/60 hover:text-gray-50/80 hidden sm:inline-block">
                   by {project.author.username}
                 </span>
               </Link>
@@ -116,25 +118,25 @@ function NavbarEditor({ light, project, setPage }) {
           </div>
         </div>
 
-        <div className="w-1/3 flex justify-center text-gray-50/60">
+        <div className="w-full lg:w-1/3 flex justify-center text-gray-50/60">
           <div
-            className="pe-4"
+            className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('info')
             }}
           >
             <HiOutlineInformationCircle
-              className={`h-full w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+              className={`h-full w-4 lg:w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             />
           </div>
           <div
-            className="pe-4"
+            className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('canva')
             }}
           >
             <FaPlay
-              className={`h-full w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+              className={`h-full w-4 lg:w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             />
           </div>
           <div
@@ -143,13 +145,13 @@ function NavbarEditor({ light, project, setPage }) {
             }}
           >
             <TbCodeCircle
-              className={`h-full w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+              className={`h-full w-4 lg:w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             />
           </div>
         </div>
 
-        <div className="w-1/3 flex justify-end text-gray-50/60">
-          <div className="flex items-center pe-4">
+        <div className="w-full lg:w-1/3 flex justify-end items-center text-gray-50/60">
+          <div className="flex items-center">
             <p className="text-base font-semibold pe-1 lg:pe-2">
               {appreciations?.length}
             </p>
@@ -159,7 +161,7 @@ function NavbarEditor({ light, project, setPage }) {
                   addOrRemoveAppreciation()
                 }}
               >
-                <FaHeart className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+                <FaHeart className="h-full w-4 lg:w-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
               </div>
             ) : (
               <div
@@ -167,11 +169,11 @@ function NavbarEditor({ light, project, setPage }) {
                   addOrRemoveAppreciation()
                 }}
               >
-                <FaRegHeart className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+                <FaRegHeart className="h-full w-4 lg:w-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
               </div>
             )}
           </div>
-          <div className="flex items-center pe-4">
+          <div className="flex items-center ps-4">
             <p className="text-base font-semibold pe-1 lg:pe-2">
               {commentsNavbar}
             </p>
@@ -184,11 +186,11 @@ function NavbarEditor({ light, project, setPage }) {
                 }
               }}
             >
-              <BiComment className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+              <BiComment className="h-full w-4 lg:w-5 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
             </div>
           </div>
           <div
-            className={`${light === 'Profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer h-full w-1/10 xl:w-1/20 flex justify-end`}
+            className={`${light === 'Profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer h-full w-5 xl:w-1/20 flex justify-end ms-4`}
             onClick={() => {
               if (panel === 'profile') {
                 setPanel('')

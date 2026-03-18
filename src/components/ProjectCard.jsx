@@ -84,14 +84,14 @@ function ProjectCard({ project }) {
           </p>
           <div className="flex items-center py-4 justify-between text-gray-50/70">
             <div className="flex items-center">
-              <div className="w-5 aspect-square rounded-full overflow-hidden">
+              <div className="w-5 aspect-square rounded-full overflow-hidden border border-gray-50/10">
                 <img
-                  src="https://res.cloudinary.com/cloudgiada/image/upload/v1772903135/ggfstlipbuzzh1hu1nmw.png"
-                  alt="Basic profile"
+                  src={project.author.profileImage}
+                  alt="Profile image"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <p className="text-xs lg:text-sm ps-2 whitespace-nowrap hover:text-gray-50 transition-colors duration-150 cursor-pointer">
+              <p className="text-xs lg:text-sm ps-2 whitespace-nowrap">
                 {project.author.username}
               </p>
             </div>
