@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { MdModeEdit } from 'react-icons/md'
 
-function CommentsPanel({ panel }) {
+function CommentsPanel({ panel, setCommentsNavbar }) {
   const [comments, setComments] = useState(null)
 
   const [newComment, setNewComment] = useState({
@@ -43,6 +43,7 @@ function CommentsPanel({ panel }) {
       .then((data) => {
         console.log(data)
         setComments(data)
+        setCommentsNavbar(data.length)
       })
       .catch((err) => {
         console.log('ERRORE :', err)
@@ -81,14 +82,14 @@ function CommentsPanel({ panel }) {
 
   return (
     <div
-      className={`w-80 h-full inset-e-0 top-0 pt-20 pb-10 px-5 fixed z-10 bg-neutral-900 transition-all duration-300 flex flex-col text-gray-50/60
+      className={`w-80 h-full inset-e-0 top-0 pt-22 pb-10 px-5 fixed z-10 bg-neutral-900 transition-all duration-300 flex flex-col text-gray-50/60
                    ${panel === 'comments' ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
     >
       <div className="w-full overflow-y-auto grow">
         {comments &&
           comments.map((comment) => {
             return (
-              <div key={comment.user.userId}>
+              <div key={comment.commentId}>
                 <div className="w-full flex items-start p-2 transition-colors duration-220 cursor-pointer pb-6">
                   <div className="w-7 aspect-square rounded-full overflow-hidden mt-0.5 border border-gray-50/10">
                     <img
@@ -102,6 +103,11 @@ function CommentsPanel({ panel }) {
                       <Link to={`/profile/${comment.user.userId}`}>
                         <p className="text-sm font-semibold hover:text-gray-50">
                           {comment.user.username}
+                          <span
+                            className={`ps-2 font-thin text-xs ${comment.updated ? 'opacity-100' : 'opacity-0'}`}
+                          >
+                            Modified
+                          </span>
                         </p>
                       </Link>
                       <div

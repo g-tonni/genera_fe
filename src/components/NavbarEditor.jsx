@@ -15,6 +15,8 @@ import CommentsPanel from './CommentsPanel'
 function NavbarEditor({ light, project, setPage }) {
   const [panel, setPanel] = useState('')
 
+  const [commentsNavbar, setCommentsNavbar] = useState(0)
+
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
@@ -26,7 +28,7 @@ function NavbarEditor({ light, project, setPage }) {
   return (
     <>
       <DesktopProfilePanel panel={panel} log={token} />
-      <CommentsPanel panel={panel} />
+      <CommentsPanel panel={panel} setCommentsNavbar={setCommentsNavbar} />
 
       <div className="fixed z-10 w-full h-16 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black flex justify-between items-center ">
         <div className="flex items-center w-1/3">
@@ -95,7 +97,9 @@ function NavbarEditor({ light, project, setPage }) {
             <FaRegHeart className="h-full w-6 lg:w-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
           </div>
           <div className="flex items-center pe-4">
-            <p className="text-base font-semibold pe-1 lg:pe-2">3</p>
+            <p className="text-base font-semibold pe-1 lg:pe-2">
+              {commentsNavbar}
+            </p>
             <div
               onClick={() => {
                 if (panel === 'comments') {
