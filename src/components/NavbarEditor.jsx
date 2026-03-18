@@ -10,6 +10,7 @@ import { BiComment } from 'react-icons/bi'
 import { FaRegHeart } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa6'
 import DesktopProfilePanel from './DesktopProfilePanel'
+import CommentsPanel from './CommentsPanel'
 
 function NavbarEditor({ light, project, setPage }) {
   const [panel, setPanel] = useState('')
@@ -25,8 +26,9 @@ function NavbarEditor({ light, project, setPage }) {
   return (
     <>
       <DesktopProfilePanel panel={panel} log={token} />
+      <CommentsPanel panel={panel} />
 
-      <div className="fixed z-10 w-full h-16 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black hidden lg:flex justify-between items-center ">
+      <div className="fixed z-10 w-full h-16 mx-auto px-12 md:px-20 xl:px-25 py-6 bg-black flex justify-between items-center ">
         <div className="flex items-center w-1/3">
           <div className="h-full w-5">
             <Link to={'/'}>
