@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom'
 import NavbarEditor from './NavbarEditor'
+import ProjectInfo from './ProjectInfo'
+import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -51,9 +52,7 @@ function ProjectPage() {
           <NavbarEditor project={project} setPage={setPage} />
 
           <div className="w-full h-screen bg-black">
-            {page === 'info' && (
-              <p className="text-3xl pt-50 text-red-600">ciaoo</p>
-            )}
+            {page === 'info' && <ProjectInfo project={project} />}
             {page === 'canva' && (
               <p className="text-3xl pt-50 text-green-600">ciaoo</p>
             )}
