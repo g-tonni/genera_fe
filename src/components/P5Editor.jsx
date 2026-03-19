@@ -32,7 +32,9 @@ const P5Editor = ({ code, setCode }) => {
         EditorView.updateListener.of((update) => {
           if (update.docChanged) {
             const newCode = update.state.doc.toString()
-            setCode(newCode)
+            setCode({
+              code: newCode,
+            })
           }
         }),
       ],
@@ -40,10 +42,11 @@ const P5Editor = ({ code, setCode }) => {
     })
 
     return () => view.current.destroy()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div ref={editor} className="bg-black w-full min-h-full py-15 text-white" />
+    <div ref={editor} className="bg-black w-full min-h-full py-16 text-white" />
   )
 }
 

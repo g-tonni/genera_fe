@@ -9,8 +9,21 @@ const P5Iframe = ({ p5Code }) => {
       <head>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
       <style>
-      body,html{margin:0;padding:0;overflow:hidden;}
-      canvas{display:block;}
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      canvas {
+        display: block;
+      }
       </style>
       </head>
       <body>
