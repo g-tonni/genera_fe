@@ -144,7 +144,7 @@ function EditProfilePage() {
 
   return (
     <>
-      <div className="w-full min-h-screen bg-black text-gray-50 px-10 md:px-30 xl:px-60 2xl:px-100 py-30 lg:py-0 flex justify-center items-center relative">
+      <div className="w-full min-h-screen bg-black text-gray-50 px-10 md:px-30 xl:px-60 2xl:px-100 py-30 flex justify-center items-center relative">
         <div className="w-full">
           <div className="w-full flex flex-col lg:flex-row">
             <div className="w-full lg:w-1/3 h-full flex flex-col justify-between items-start">
@@ -164,7 +164,7 @@ function EditProfilePage() {
                   onChange={handleChange}
                   style={{ display: 'none' }}
                 />
-                <div className="w-full h-full absolute top-0 left-0 hover:bg-black/60 z-2 transition-colors duration-220 cursor-pointer"></div>
+                <div className="w-full h-full absolute top-0 left-0 hover:bg-black/60 z-1 transition-colors duration-220 cursor-pointer"></div>
               </div>
             </div>
             <div className="w-full lg:w-2/3 lg:ps-10 pt-15 lg:pt-0 flex flex-col justify-between items-end">
@@ -274,9 +274,9 @@ function EditProfilePage() {
       </div>
 
       {imageModal && (
-        <div className="w-full h-screen bg-black/70 absolute top-0 flex justify-center items-center">
-          <div className="w-1/3 h-1/3 bg-black flex flex-col justify-between items-center p-10  border border-gray-50/10">
-            <div className="w-1/2 aspect-square rounded-full overflow-hidden">
+        <div className="w-full h-screen bg-black/70 absolute top-0 flex justify-center items-center z-2">
+          <div className="w-full mx-12 md:mx-0 md:w-3/4 lg:w-2/3 xl:w-3/5 2xl:w-1/3 bg-black flex flex-col justify-between items-center p-10  border border-gray-50/10">
+            <div className="w-full lg:w-1/2 aspect-square rounded-full overflow-hidden mb-15">
               <img
                 src={preview}
                 alt="Image upload"
