@@ -1,11 +1,11 @@
 import NavbarEditor from './NavbarEditor'
 import ProjectInfo from './ProjectInfo'
 import P5Editor from './P5Editor'
-import P5Iframe from './P5Iframe'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import WhiteButton from './WhiteButton'
+import P5IframeEditor from './P5IframeEditor'
 
 function ProjectPage() {
   const [code, setCode] = useState(null)
@@ -85,7 +85,7 @@ function ProjectPage() {
             {page === 'info' && <ProjectInfo project={project} />}
             {page === 'canva' && (
               <div className="w-full h-full flex justify-center items-center">
-                <P5Iframe p5Code={code.code} />
+                <P5IframeEditor p5Code={code.code} />
               </div>
             )}
             {page === 'code' && (
