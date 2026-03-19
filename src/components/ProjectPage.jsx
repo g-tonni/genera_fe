@@ -1,10 +1,13 @@
 import NavbarEditor from './NavbarEditor'
 import ProjectInfo from './ProjectInfo'
+import P5Editor from './P5Editor'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 function ProjectPage() {
+  const [code, setCode] = useState('')
+
   const [project, setProject] = useState(null)
 
   const [page, setPage] = useState('canva')
@@ -56,9 +59,7 @@ function ProjectPage() {
             {page === 'canva' && (
               <p className="text-3xl pt-50 text-green-600">ciaoo</p>
             )}
-            {page === 'code' && (
-              <p className="text-3xl pt-50 text-blue-600">ciaoo</p>
-            )}
+            {page === 'code' && <P5Editor code="" setCode={setCode} />}
           </div>
         </>
       )}

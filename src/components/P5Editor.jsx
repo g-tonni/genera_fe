@@ -1,6 +1,19 @@
 import { useEffect, useRef } from 'react'
 import { EditorView, basicSetup } from 'codemirror'
 import { javascript } from '@codemirror/lang-javascript'
+import { vscodeDark } from '@uiw/codemirror-theme-vscode'
+
+const blackTheme = EditorView.theme({
+  '.cm-editor': {
+    backgroundColor: '#000',
+  },
+  '.cm-scroller': {
+    backgroundColor: '#000',
+  },
+  '.cm-gutters': {
+    backgroundColor: '#000',
+  },
+})
 
 const P5Editor = ({ code, setCode }) => {
   const editor = useRef(null)
@@ -14,6 +27,8 @@ const P5Editor = ({ code, setCode }) => {
       extensions: [
         basicSetup,
         javascript(),
+        vscodeDark,
+        blackTheme,
         EditorView.updateListener.of((update) => {
           if (update.docChanged) {
             const newCode = update.state.doc.toString()
@@ -28,14 +43,7 @@ const P5Editor = ({ code, setCode }) => {
   }, [])
 
   return (
-    <div
-      ref={editor}
-      style={{
-        height: '400px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-      }}
-    />
+    <div ref={editor} className="bg-black w-full min-h-full py-15 text-white" />
   )
 }
 

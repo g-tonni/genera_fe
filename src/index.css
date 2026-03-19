@@ -4,3 +4,7 @@
 @theme {
   --font-sans: 'Montserrat', sans-serif;
 }
+
+.cm-editor.cm-focused {
+  outline: none !important;
+}

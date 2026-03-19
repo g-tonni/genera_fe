@@ -13,8 +13,8 @@ import DesktopProfilePanel from './DesktopProfilePanel'
 import CommentsPanel from './CommentsPanel'
 import MobileProfilePanel from './MobileProfilePanel'
 
-function NavbarEditor({ light, project, setPage }) {
-  const [panel, setPanel] = useState('')
+function NavbarEditor({ project, setPage }) {
+  const [panel, setPanel] = useState('canva')
 
   const params = useParams()
 
@@ -123,29 +123,44 @@ function NavbarEditor({ light, project, setPage }) {
             className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('info')
+              if (panel === 'info') {
+                setPanel('')
+              } else {
+                setPanel('info')
+              }
             }}
           >
             <HiOutlineInformationCircle
-              className={`h-full w-4 lg:w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+              className={`h-full w-4 lg:w-6 flex ${panel === 'info' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             />
           </div>
           <div
             className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('canva')
+              if (panel === 'canva') {
+                setPanel('')
+              } else {
+                setPanel('canva')
+              }
             }}
           >
             <FaPlay
-              className={`h-full w-4 lg:w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+              className={`h-full w-4 lg:w-6 flex ${panel === 'canva' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             />
           </div>
           <div
             onClick={() => {
               setPage('code')
+              if (panel === 'code') {
+                setPanel('')
+              } else {
+                setPanel('code')
+              }
             }}
           >
             <TbCodeCircle
-              className={`h-full w-4 lg:w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+              className={`h-full w-4 lg:w-6 flex ${panel === 'code' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             />
           </div>
         </div>
@@ -190,7 +205,7 @@ function NavbarEditor({ light, project, setPage }) {
             </div>
           </div>
           <div
-            className={`${light === 'Profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer h-full w-5 xl:w-1/20 flex justify-end ms-4`}
+            className={`${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer h-full w-5 xl:w-1/20 flex justify-end ms-4`}
             onClick={() => {
               if (panel === 'profile') {
                 setPanel('')

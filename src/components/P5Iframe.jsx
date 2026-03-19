@@ -1,7 +1,7 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react'
 
 const P5Iframe = ({ p5Code }) => {
-  const iframeRef = useRef(null);
+  const iframeRef = useRef(null)
 
   const srcDoc = `
       <!DOCTYPE html>
@@ -15,13 +15,13 @@ const P5Iframe = ({ p5Code }) => {
       </head>
       <body>
       <script>
-      ${p5Code || ""}
+      ${p5Code || ''}
       </script>
       </body>
       </html>
-      `;
+      `
 
-  useEffect(() => {}, [p5Code]);
+  useEffect(() => {}, [p5Code])
 
   return (
     <iframe
@@ -31,7 +31,7 @@ const P5Iframe = ({ p5Code }) => {
       className="w-full h-full"
       sandbox="allow-scripts"
     />
-  );
-};
+  )
+}
 
-export default P5Iframe;
+export default P5Iframe
