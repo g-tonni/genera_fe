@@ -8,9 +8,9 @@ import { FaLink } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import ProfileProjectsSection from './ProfileProjectsSection'
 import ProfileUsersSection from './ProfileUsersSection'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import WhiteButton from './WhiteButton'
+import { RiImageEditFill } from 'react-icons/ri'
 
 function ProfilePage() {
   const params = useParams()
@@ -133,9 +133,16 @@ function ProfilePage() {
 
       <div className="w-full h-screen text-gray-50">
         <div className="w-full h-5/6 relative">
-          {user.profileCoverSketch && (
-            <P5Iframe p5Code={user.profileCoverSketch} />
+          <P5Iframe p5Code={user.profileCoverSketch} />
+          {params.id === userId && (
+            <Link to={`/profile/${userId}/cover`}>
+              <button className="bg-white py-2 px-4 absolute top-0 left-0 translate-y-12 lg:translate-y-26 translate-x-12 flex items-center text-black font-semibold hover:bg-black hover:text-gray-50 transition-colors duration-150 cursor-pointer z-2">
+                <RiImageEditFill className="h-full w-5 me-3" />
+                Edit cover
+              </button>
+            </Link>
           )}
+
           {/* DIV IMMAGINE E NOME */}
           <div className="w-full mx-auto px-12 md:px-20 xl:px-25 absolute bottom-0 flex items-center translate-y-1/2">
             <div className="w-1/3 md:w-1/4 2xl:w-1/6 aspect-square rounded-full overflow-hidden border-6 lg:border-10 border-black ">
@@ -145,7 +152,7 @@ function ProfilePage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="w-2/3 md:w-3/4 2xl:w-5/6 ps-5 md:ps-10 2xl:ps-20 flex flex-col lg:flex-row pb-12 sm:pb-20 xl:pb-25 2xl:pb-35">
+            <div className="w-2/3 md:w-3/4 2xl:w-5/6 ps-5 md:ps-10 2xl:ps-20 flex flex-row pb-12 sm:pb-20 xl:pb-25 2xl:pb-35">
               <p className="w-full font-extrabold text-3xl sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl truncate">
                 {user.name.toUpperCase()}
               </p>

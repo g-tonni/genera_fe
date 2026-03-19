@@ -80,9 +80,9 @@ const P5IframeEditor = ({ p5Code }) => {
       `
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="w-full h-screen">
       {/* Container p5 canvas */}
-      <div className="grow relative">
+      <div className="h-full relative">
         <iframe
           key={p5Code}
           ref={iframeRef}
@@ -101,22 +101,21 @@ const P5IframeEditor = ({ p5Code }) => {
             className={`h-full w-6 flex ${errors.length === 0 ? 'text-lime-500' : 'text-red-600'} `}
           />
         </div>
-      </div>
-
-      {/* Terminale */}
-      <div
-        className={`h-48 w-full bg-neutral-900 text-red-400 p-4 overflow-y-auto font-mono text-sm absolute bottom-0 ${terminal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
-      >
-        <p className="text-gray-400 mb-2"> Console Output:</p>
-        {errors.length === 0 ? (
-          <span className="text-green-500">&gt; Not errors.</span>
-        ) : (
-          errors.map((err, index) => (
-            <div key={index} className="mb-1">
-              &gt; {err}
-            </div>
-          ))
-        )}
+        {/* Terminale */}
+        <div
+          className={`h-48 w-full bg-neutral-900 text-red-400 p-4 font-mono text-sm absolute bottom-0 ${terminal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'} transition-all duration-300`}
+        >
+          <p className="text-gray-400 mb-2"> Console Output:</p>
+          {errors.length === 0 ? (
+            <span className="text-green-500">&gt; Not errors.</span>
+          ) : (
+            errors.map((err, index) => (
+              <div key={index} className="mb-1">
+                &gt; {err}
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   )

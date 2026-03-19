@@ -7,6 +7,7 @@ import LoginPage from './components/LoginPage'
 import EditProfilePage from './components/EditProfilePage'
 import EditProjectInfoPage from './components/EditProjectInfoPage'
 import ProjectPage from './components/ProjectPage'
+import EditProfileCoverPage from './components/EditProfileCoverPage'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store/store'
@@ -29,6 +30,10 @@ function App() {
               element={<EditProjectInfoPage />}
             />
             <Route path="/projects/:id" element={<ProjectPage />} />
+            <Route
+              path="/profile/:id/cover"
+              element={<EditProfileCoverPage />}
+            />
           </Routes>
         </BrowserRouter>
       </Provider>
