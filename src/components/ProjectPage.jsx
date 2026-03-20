@@ -20,6 +20,10 @@ function ProjectPage() {
     return currState.authReducer.token
   })
 
+  const userId = useSelector((currState) => {
+    return currState.authReducer.userId
+  })
+
   const baseUrl = 'http://localhost:3001/projects/'
 
   const updateCode = function () {
@@ -91,14 +95,16 @@ function ProjectPage() {
             {page === 'code' && (
               <div className="w-full h-full relative">
                 <P5Editor code={code.code} setCode={setCode} />
-                <div
-                  className="fixed bottom-0 right-0 -translate-x-10 -translate-y-10"
-                  onClick={() => {
-                    updateCode()
-                  }}
-                >
-                  <WhiteButton text="SAVE" size="md" />
-                </div>
+                {project.author.userId === userId && (
+                  <div
+                    className="fixed bottom-0 right-0 -translate-x-10 -translate-y-10"
+                    onClick={() => {
+                      updateCode()
+                    }}
+                  >
+                    <WhiteButton text="SAVE" size="md" />
+                  </div>
+                )}
               </div>
             )}
           </div>

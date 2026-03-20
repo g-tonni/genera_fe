@@ -6,10 +6,19 @@ import { useEffect, useState } from 'react'
 
 function FooterDesktop() {
   const location = useLocation()
-  const [visible, setVisible] = useState(location.pathname !== '/')
+
+  const delayPaths = ['/', '/profile']
+  const isDelayPage = delayPaths.some((path) =>
+    location.pathname.startsWith(path),
+  )
+
+  const [visible, setVisible] = useState(!isDelayPage)
 
   useEffect(() => {
-    if (location.pathname !== '/') return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setVisible(!isDelayPage)
+
+    if (!isDelayPage) return
 
     const handleScroll = () => {
       const headerHeight = window.innerHeight * 0.1
@@ -18,8 +27,10 @@ function FooterDesktop() {
 
     window.addEventListener('scroll', handleScroll)
 
+    handleScroll()
+
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [location.pathname])
+  }, [location.pathname, isDelayPage])
 
   return (
     <div

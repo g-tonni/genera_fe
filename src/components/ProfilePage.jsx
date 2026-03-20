@@ -2,6 +2,7 @@ import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 import FooterDesktop from './FooterDesktop'
 import OutlineButton from './OutlineButton'
+import WhiteButton from './WhiteButton'
 import P5Iframe from './P5Iframe'
 import { TiLocation } from 'react-icons/ti'
 import { FaLink } from 'react-icons/fa'
@@ -129,7 +130,7 @@ function ProfilePage() {
     <>
       <NavbarDesktop light="Home" />
       <NavbarMobile light="Home" />
-      {/*    <FooterDesktop /> */}
+      <FooterDesktop />
 
       <div className="w-full h-screen text-gray-50">
         <div className="w-full h-5/6 relative">

@@ -5,6 +5,7 @@ import { VscAccount } from 'react-icons/vsc'
 import { TbCodeCircle } from 'react-icons/tb'
 import { HiOutlineInformationCircle } from 'react-icons/hi'
 import { FiPlusCircle } from 'react-icons/fi'
+import { FaMinusCircle } from 'react-icons/fa'
 import { FaPlay } from 'react-icons/fa'
 import { BiComment } from 'react-icons/bi'
 import { FaRegHeart } from 'react-icons/fa'
@@ -17,6 +18,8 @@ function NavbarEditor({ project, setPage }) {
   const [panel, setPanel] = useState('canva')
 
   const params = useParams()
+
+  const [followed, setFollowed] = useState(null)
 
   const [appreciations, setAppreciations] = useState(null)
   const [appreciated, setAppreciated] = useState(false)
@@ -31,10 +34,11 @@ function NavbarEditor({ project, setPage }) {
     return currState.authReducer.userId
   })
 
-  const url = `http://localhost:3001/projects/${params.id}/appreciations`
+  const appreciationsUrl = `http://localhost:3001/projects/${params.id}/appreciations`
+  const connectionsBaseUrl = 'http://localhost:3001/users/'
 
   const getAppreciations = function () {
-    fetch(url, {
+    fetch(appreciationsUrl, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -60,7 +64,7 @@ function NavbarEditor({ project, setPage }) {
   }
 
   const addOrRemoveAppreciation = function () {
-    fetch(url, {
+    fetch(appreciationsUrl, {
       method: appreciated ? 'DELETE' : 'POST',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -78,10 +82,57 @@ function NavbarEditor({ project, setPage }) {
       })
   }
 
+  const addOrRemoveConnection = function () {
+    fetch(connectionsBaseUrl + project.author.userId + '/connections', {
+      method: followed ? 'DELETE' : 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setFollowed(!followed)
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
+  const getMyConnections = function () {
+    fetch(connectionsBaseUrl + 'me/connections', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log('CONNECTIONS 2', data)
+        const isFollowed = data.some(
+          (user) => user.userId === project.author.userId,
+        )
+        console.log('ID FOLLOWED', isFollowed)
+        setFollowed(isFollowed)
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
   useEffect(() => {
     getAppreciations()
+    getMyConnections()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.id])
+  }, [params.id, followed])
 
   return (
     <>
@@ -109,10 +160,25 @@ function NavbarEditor({ project, setPage }) {
               </Link>
             </p>
             {project.author.userId !== userId && (
-              <div className="ps-2">
-                <FiPlusCircle
-                  className={`h-full w-5 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
-                />
+              <div className="ms-3">
+                {params.id !== userId && !followed && (
+                  <div
+                    onClick={() => {
+                      addOrRemoveConnection()
+                    }}
+                  >
+                    <FiPlusCircle className="mt-1 h-full w-4 flex text-gray-50/60 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+                  </div>
+                )}
+                {params.id !== userId && followed && (
+                  <div
+                    onClick={() => {
+                      addOrRemoveConnection()
+                    }}
+                  >
+                    <FaMinusCircle className="mt-0.5 h-full w-4 flex text-gray-50/60 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+                  </div>
+                )}
               </div>
             )}
           </div>

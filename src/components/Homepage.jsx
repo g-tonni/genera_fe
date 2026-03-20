@@ -207,8 +207,11 @@ import P5Iframe from './P5Iframe'
 import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 import FooterDesktop from './FooterDesktop'
+import { useNavigate } from 'react-router-dom'
 
 function Homepage() {
+  const navigate = useNavigate()
+
   return (
     <>
       <NavbarDesktop light="Home" />
@@ -259,7 +262,13 @@ function Homepage() {
                 process-constantly changing, never exactly the same.
               </p>
             </div>
-            <OutlineButton text="DISCOVER" size="xl" />
+            <div
+              onClick={() => {
+                navigate('/discover')
+              }}
+            >
+              <OutlineButton text="DISCOVER" size="xl" />
+            </div>
           </div>
           <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
             <P5Iframe p5Code={sketchCode2} />
@@ -281,7 +290,12 @@ function Homepage() {
               </p>
             </div>
 
-            <div className="w-full flex lg:justify-start">
+            <div
+              className="w-full flex lg:justify-start"
+              onClick={() => {
+                navigate('/discover')
+              }}
+            >
               <OutlineButton text="DISCOVER" size="xl" />
             </div>
           </div>
@@ -305,7 +319,13 @@ function Homepage() {
                 and perspective.
               </p>
             </div>
-            <OutlineButton text="DISCOVER" size="xl" />
+            <div
+              onClick={() => {
+                navigate('/discover')
+              }}
+            >
+              <OutlineButton text="DISCOVER" size="xl" />
+            </div>
           </div>
           <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
             <P5Iframe p5Code={sketchCode2} />
@@ -343,7 +363,12 @@ function Homepage() {
           </div>
         </div>
         <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex items-center justify-end pt-25 lg:pt-10 pb-60">
-          <div className="w-full lg:w-3/5 lg:ps-20 xl:ps-50 2xl:ps-80">
+          <div
+            className="w-full lg:w-3/5 lg:ps-20 xl:ps-50 2xl:ps-80"
+            onClick={() => {
+              navigate('/register')
+            }}
+          >
             <BlackButton text="START CREATING" size="xl" />
           </div>
         </div>
