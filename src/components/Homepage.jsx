@@ -270,7 +270,7 @@ function Homepage() {
               <OutlineButton text="DISCOVER" size="xl" />
             </div>
           </div>
-          <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
+          <div className="w-full lg:w-2/4 2xl:w-1/3 aspect-square">
             <P5Iframe p5Code={sketchCode2} />
           </div>
         </div>
@@ -300,7 +300,7 @@ function Homepage() {
             </div>
           </div>
 
-          <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
+          <div className="w-full lg:w-2/4 2xl:w-1/3 aspect-square">
             <P5Iframe p5Code={sketchCode2} />
           </div>
         </div>
@@ -327,7 +327,7 @@ function Homepage() {
               <OutlineButton text="DISCOVER" size="xl" />
             </div>
           </div>
-          <div className="w-full lg:w-2/4 2xl:w-1/3 h-110 sm:h-150 lg:h-150">
+          <div className="w-full lg:w-2/4 2xl:w-1/3 aspect-square">
             <P5Iframe p5Code={sketchCode2} />
           </div>
         </div>

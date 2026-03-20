@@ -1,9 +1,12 @@
 import { useRef, useEffect, useState } from 'react'
 import { CgTerminal } from 'react-icons/cg'
+import NavbarEditorSkeleton from './NavbarEditorSkeleton'
 
 const P5IframeEditor = ({ p5Code }) => {
   const iframeRef = useRef(null)
   const [errors, setErrors] = useState([])
+
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const [terminal, setTerminal] = useState(false)
 
@@ -81,13 +84,22 @@ const P5IframeEditor = ({ p5Code }) => {
 
   return (
     <div className="w-full h-dvh overflow-hidden bg-black">
+      {!isLoaded && (
+        <div className="h-screen max-h-screen w-full bg-black flex flex-col">
+          <NavbarEditorSkeleton />
+          <div className="w-full grow flex justify-center items-center">
+            <div className="w-1/3 aspect-square bg-neutral-900 animate-pulse"></div>
+          </div>
+        </div>
+      )}
       {/* Container p5 canvas */}
       <div className="w-full h-full relative">
         <iframe
           key={p5Code}
           ref={iframeRef}
           srcDoc={srcDoc}
-          className="w-full h-full"
+          onLoad={() => setIsLoaded(true)}
+          className={`w-full h-full transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           sandbox="allow-scripts"
         />
         {/* Pulsante che apre il terminale */}
