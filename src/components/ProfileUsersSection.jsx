@@ -1,5 +1,6 @@
 import { IoSearch } from 'react-icons/io5'
 import UserCard from './UserCard'
+import UserCardSkeleton from './UserCardSkeleton'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -8,6 +9,9 @@ function ProfileUsersSection({ section }) {
   const [users, setUsers] = useState(null)
 
   const [partialName, setPartialName] = useState('')
+
+  const [loading, setLoading] = useState(true)
+  const numberSkeleton = Array.from({ length: 10 })
 
   const params = useParams()
 
@@ -31,10 +35,12 @@ function ProfileUsersSection({ section }) {
         }
       })
       .then((data) => {
-        console.log('USERS', data)
+        // console.log('USERS', data)
+        setLoading(false)
         setUsers(data)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE: ', err)
       })
   }
@@ -67,15 +73,19 @@ function ProfileUsersSection({ section }) {
 
       {/* SEZIONE CARD */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2">
+        {loading &&
+          numberSkeleton.map((_, i) => {
+            return <UserCardSkeleton key={i} />
+          })}
         {users &&
           section === 'connections' &&
           users.content.map((user) => {
-            return <UserCard user={user.followed} />
+            return <UserCard user={user.followed} key={user.followed.userId} />
           })}
         {users &&
           section === 'supporters' &&
           users.content.map((user) => {
-            return <UserCard user={user.follower} />
+            return <UserCard user={user.follower} key={user.follower.userId} />
           })}
       </div>
     </div>

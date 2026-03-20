@@ -3,9 +3,14 @@ import NavbarMobile from './NavbarMobile'
 import FooterDesktop from './FooterDesktop'
 import ProjectCard from './ProjectCard'
 import { useEffect, useState } from 'react'
+import ProjectCardSkeleton from './ProjectCardSkeleton'
 
 function DiscoverPage() {
   const [section, setSection] = useState('Generative')
+
+  const numberSkeleton = Array.from({ length: 18 })
+
+  const [loading, setLoading] = useState(true)
 
   const [projects, setProjects] = useState(null)
 
@@ -30,9 +35,11 @@ function DiscoverPage() {
       .then((data) => {
         console.log(data)
         setProjects(data)
+        setLoading(false)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
+        setLoading(false)
       })
   }
 
@@ -59,6 +66,7 @@ function DiscoverPage() {
                 className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === 'Generative' ? 'bg-gray-50/20 border-b-2 ' : 'bg-transparent'} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
                   setSection('Generative')
+                  setLoading(true)
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -69,6 +77,7 @@ function DiscoverPage() {
                 className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === 'Interactive' ? 'bg-gray-50/20 border-b-2 ' : 'bg-transparent'} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
                   setSection('Interactive')
+                  setLoading(true)
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -79,6 +88,7 @@ function DiscoverPage() {
                 className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === 'Spatial' ? 'bg-gray-50/20 border-b-2 ' : 'bg-transparent'} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
                   setSection('Spatial')
+                  setLoading(true)
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -89,6 +99,7 @@ function DiscoverPage() {
                 className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === 'Patterns' ? 'bg-gray-50/20 border-b-2 ' : 'bg-transparent'} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
                   setSection('Patterns')
+                  setLoading(true)
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -99,6 +110,7 @@ function DiscoverPage() {
                 className={`px-5 py-2 hover:bg-gray-50/40 hover:border-b-2 border-gray-50 ${section === 'Particles' ? 'bg-gray-50/20 border-b-2 ' : 'bg-transparent'} transition-colors duration-150 cursor-pointer`}
                 onClick={() => {
                   setSection('Particles')
+                  setLoading(true)
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
@@ -113,9 +125,13 @@ function DiscoverPage() {
       </div>
       <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bg-black text-gray-50 pb-30 min-h-screen">
         <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
+          {loading &&
+            numberSkeleton.map((_, i) => {
+              return <ProjectCardSkeleton key={i} />
+            })}
           {projects &&
             projects.content.map((project) => {
-              return <ProjectCard project={project} />
+              return <ProjectCard project={project} key={project.projectId} />
             })}
         </div>
       </div>

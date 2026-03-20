@@ -9,6 +9,8 @@ function UserCard({ user }) {
     return currState.authReducer.token
   })
 
+  const [loading, setLoading] = useState(true)
+
   const [supporters, setSupporters] = useState(null)
   const [projects, setProjects] = useState(null)
 
@@ -29,8 +31,9 @@ function UserCard({ user }) {
         }
       })
       .then((data) => {
-        console.log('SUPPORTERS', data)
-        setSupporters(data.content.length)
+        // console.log('SUPPORTERS', data)
+        setLoading(false)
+        setSupporters(data.totalElements)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -52,8 +55,9 @@ function UserCard({ user }) {
         }
       })
       .then((data) => {
-        console.log(data)
-        setProjects(data.content.length)
+        // console.log(data)
+        setLoading(false)
+        setProjects(data.totalElements)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -74,17 +78,24 @@ function UserCard({ user }) {
     >
       <div className="w-1/4 aspect-square rounded-full overflow-hidden">
         <img
-          src="https://res.cloudinary.com/cloudgiada/image/upload/v1772903135/ggfstlipbuzzh1hu1nmw.png"
-          alt="Image profile"
+          src={user.profileImage}
+          alt="Profile image"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="flex flex-col ps-6">
         <p className="text-lg font-semibold">{user.username}</p>
-        <p className="font-thin text-sm whitespace-nowrap">
-          <span className="font-medium">{projects}</span> projects,{' '}
-          <span className="font-medium">{supporters}</span> supporters
-        </p>
+        {loading ? (
+          <div className="flex justify-center">
+            <div className="h-3 w-20 bg-neutral-900 animate-pulse me-3"></div>
+            <div className="h-3 w-20 bg-neutral-900 animate-pulse"></div>
+          </div>
+        ) : (
+          <p className="font-thin text-sm whitespace-nowrap">
+            <span className="font-medium">{projects}</span> projects,{' '}
+            <span className="font-medium">{supporters}</span> supporters
+          </p>
+        )}
       </div>
     </div>
   )

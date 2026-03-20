@@ -12,6 +12,8 @@ function ProjectCard({ project, getProjects }) {
 
   const [deleteProjectModal, setDeleteProjectModal] = useState(false)
 
+  const [loading, setLoading] = useState(true)
+
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
@@ -40,9 +42,11 @@ function ProjectCard({ project, getProjects }) {
       })
       .then((data) => {
         // console.log(data)
+        setLoading(false)
         setComments(data)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE :', err)
       })
   }
@@ -64,7 +68,7 @@ function ProjectCard({ project, getProjects }) {
         }
       })
       .then((data) => {
-        console.log('APPRECIATIONS ', data)
+        // console.log('APPRECIATIONS ', data)
         setAppreciations(data)
       })
       .catch((err) => {
@@ -142,12 +146,18 @@ function ProjectCard({ project, getProjects }) {
               </div>
               <div className="flex items-center">
                 <div className="flex items-center pe-3">
+                  {loading && (
+                    <div className="h-5 w-5 bg-neutral-900 animate-pulse"></div>
+                  )}
                   <p className="text-sm lg:text-base font-semibold pe-1 lg:pe-2">
                     {appreciations?.length}
                   </p>
                   <BsArrowThroughHeart className="h-full w-3 lg:w-4" />
                 </div>
                 <div className="flex items-center">
+                  {loading && (
+                    <div className="h-5 w-5 bg-neutral-900 animate-pulse"></div>
+                  )}
                   <p className="text-sm lg:text-base font-semibold pe-1 lg:pe-2">
                     {comments?.length}
                   </p>

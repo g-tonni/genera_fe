@@ -1,6 +1,6 @@
 import { IoSearch } from 'react-icons/io5'
 import ProjectCard from './ProjectCard'
-import OutlineButton from './OutlineButton'
+import ProjectCardSkeleton from './ProjectCardSkeleton'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import WhiteButton from './WhiteButton'
@@ -10,6 +10,9 @@ function ProfileProjectsSection({ section, getMyProjects }) {
   const [projects, setProjects] = useState(null)
 
   const [partialTitle, setPartialTitle] = useState('')
+
+  const [loading, setLoading] = useState(true)
+  const numberSkeleton = Array.from({ length: 12 })
 
   const params = useParams()
 
@@ -26,7 +29,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
   })
 
   const getProjects = function () {
-    fetch(baseUrl + section + '?partialTitle=' + partialTitle, {
+    fetch(baseUrl + section + '?partialTitle=' + partialTitle + '&size=18', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -40,11 +43,13 @@ function ProfileProjectsSection({ section, getMyProjects }) {
         }
       })
       .then((data) => {
-        console.log(data)
+        // console.log('PROFILE PROJECT SECTION', data)
+        setLoading(false)
         setProjects(data)
         getMyProjects()
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE: ', err)
       })
   }
@@ -58,17 +63,15 @@ function ProfileProjectsSection({ section, getMyProjects }) {
     })
       .then((res) => {
         if (res.ok) {
-          return res.json()
+          setLoading(false)
+          getProjects()
+          getMyProjects()
         } else {
           throw new Error('Errore nella response')
         }
       })
-      .then((data) => {
-        console.log(data)
-        getProjects()
-        getMyProjects()
-      })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE: ', err)
       })
   }
@@ -85,6 +88,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
         <div
           className="w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 flex pb-15 sm:pe-5 md:pe-0 sm:py-15 order-2 sm:order-1"
           onClick={() => {
+            setLoading(true)
             createNewProject()
           }}
         >
@@ -106,6 +110,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
               className="w-full bg-neutral-900 text-gray-50 ps-10 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
               value={partialTitle}
               onChange={(e) => {
+                setLoading(true)
                 setPartialTitle(e.target.value)
               }}
             />
@@ -115,9 +120,29 @@ function ProfileProjectsSection({ section, getMyProjects }) {
 
       {/* SEZIONE CARD */}
       <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
-        {projects &&
-          projects.content.map((project) => {
-            return <ProjectCard project={project} getProjects={getProjects} />
+        {loading &&
+          numberSkeleton.map((_, i) => {
+            return <ProjectCardSkeleton key={i} />
+          })}
+        {section === 'projects' &&
+          projects?.content.map((project) => {
+            return (
+              <ProjectCard
+                key={project.projectId}
+                project={project}
+                getProjects={getProjects}
+              />
+            )
+          })}
+        {section === 'appreciations' &&
+          projects?.content.map((appreciation) => {
+            return (
+              <ProjectCard
+                key={appreciation.project.projectId}
+                project={appreciation.project}
+                getProjects={getProjects}
+              />
+            )
           })}
       </div>
     </div>
