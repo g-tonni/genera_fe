@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { MdModeEdit } from 'react-icons/md'
+import { MdDeleteForever } from 'react-icons/md'
 
 function CommentsPanel({ panel, setCommentsNavbar }) {
   const [comments, setComments] = useState(null)
@@ -62,10 +63,32 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
       .then((res) => {
         if (res.ok) {
           getComments()
+          setCommentId('')
           setNewComment({
             content: '',
           })
           setPostOrPatch(false)
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .catch((err) => {
+        console.log('ERRORE :', err)
+      })
+  }
+
+  const deleteComment = function () {
+    fetch(url + '/' + commentId, {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          setCommentId('')
+          getComments()
         } else {
           throw new Error('Errore nella response')
         }
@@ -101,8 +124,10 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
                   <div className="w-full ps-3">
                     <div className="w-full flex justify-between items-center pb-2">
                       <Link to={`/profile/${comment.user.userId}`}>
-                        <p className="text-sm font-semibold hover:text-gray-50">
-                          {comment.user.username}
+                        <p className="text-sm font-semibold">
+                          <span className="hover:text-gray-50">
+                            {comment.user.username}
+                          </span>
                           <span
                             className={`ps-2 font-thin text-xs ${comment.updated ? 'opacity-100' : 'opacity-0'}`}
                           >
@@ -110,18 +135,30 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
                           </span>
                         </p>
                       </Link>
-                      <div
-                        onClick={() => {
-                          setPostOrPatch(true)
-                          setNewComment({
-                            content: comment.content,
-                          })
-                          setCommentId(comment.commentId)
-                        }}
-                      >
-                        <MdModeEdit
-                          className={`h-full w-4 ${comment.user.userId === userId ? 'flex' : 'hidden'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
-                        />
+                      <div className="flex items-center">
+                        <div
+                          onClick={() => {
+                            setPostOrPatch(true)
+                            setNewComment({
+                              content: comment.content,
+                            })
+                            setCommentId(comment.commentId)
+                          }}
+                        >
+                          <MdModeEdit
+                            className={`h-full w-4 ${comment.user.userId === userId ? 'flex' : 'hidden'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
+                          />
+                        </div>
+                        <div
+                          onClick={() => {
+                            setCommentId(comment.commentId)
+                            deleteComment()
+                          }}
+                        >
+                          <MdDeleteForever
+                            className={`h-full w-4 ${comment.user.userId === userId ? 'flex' : 'hidden'} hover:text-gray-50 transition-colors duration-150 cursor-pointer ms-2`}
+                          />
+                        </div>
                       </div>
                     </div>
                     <p className="text-sm font-thin text-gray-50">

@@ -281,7 +281,7 @@ function NavbarEditor({ project, setPage }) {
             }}
           >
             <VscAccount
-              className={`h-full w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'} `}
+              className={`h-full w-6 flex ${panel === 'profile' ? 'text-gray-50' : 'text-gray-50/60'}`}
             />
           </div>
         </div>
