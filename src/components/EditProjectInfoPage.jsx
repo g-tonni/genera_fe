@@ -6,6 +6,8 @@ import OutlineButton from './OutlineButton'
 function EditProjectInfoPage() {
   const [project, setProject] = useState(null)
 
+  const [loading, setLoading] = useState(true)
+
   const [editProject, setEditProject] = useState({
     title: '',
     description: '',
@@ -90,7 +92,8 @@ function EditProjectInfoPage() {
         }
       })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
+        setLoading(false)
         setEditProject({
           ...editProject,
           title: data.title,
@@ -101,6 +104,7 @@ function EditProjectInfoPage() {
         setProject(data)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE :', err)
       })
   }
@@ -137,24 +141,28 @@ function EditProjectInfoPage() {
         <div className="w-full">
           <div className="w-full flex flex-col lg:flex-row">
             <div className="w-full lg:w-1/2 h-full flex flex-col justify-between items-start">
-              <div
-                className="w-full aspect-square overflow-hidden relative"
-                onClick={handleClick}
-              >
-                <img
-                  src={project?.cover}
-                  alt="Project cover"
-                  className="w-full h-full object-cover"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={fileInputRef}
-                  onChange={handleChange}
-                  style={{ display: 'none' }}
-                />
-                <div className="w-full h-full absolute top-0 left-0 hover:bg-black/60 z-1 transition-colors duration-220 cursor-pointer"></div>
-              </div>
+              {loading ? (
+                <div className="w-full aspect-square bg-neutral-900 animate-pulse"></div>
+              ) : (
+                <div
+                  className="w-full aspect-square overflow-hidden relative"
+                  onClick={handleClick}
+                >
+                  <img
+                    src={project?.cover}
+                    alt="Project cover"
+                    className="w-full h-full object-cover"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handleChange}
+                    style={{ display: 'none' }}
+                  />
+                  <div className="w-full h-full absolute top-0 left-0 hover:bg-black/60 z-1 transition-colors duration-220 cursor-pointer"></div>
+                </div>
+              )}
             </div>
             <div className="w-full lg:w-1/2 aspect-square lg:ps-10 pt-15 lg:pt-0 flex flex-col justify-between items-end">
               <div className="w-full h-full flex flex-col justify-between items-end">

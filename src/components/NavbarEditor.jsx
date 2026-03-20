@@ -125,7 +125,7 @@ function NavbarEditor({ project, setPage }) {
         const isFollowed = data.some(
           (user) => user.userId === project.author.userId,
         )
-        console.log('ID FOLLOWED', isFollowed)
+        // console.log('IS FOLLOWED', isFollowed)
         setFollowed(isFollowed)
       })
       .catch((err) => {

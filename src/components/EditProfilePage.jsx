@@ -8,6 +8,8 @@ function EditProfilePage() {
 
   const baseUrl = 'http://localhost:3001/users/'
 
+  const [loading, setLoading] = useState(true)
+
   const [editBody, setEditBody] = useState({
     name: '',
     bio: '',
@@ -92,14 +94,10 @@ function EditProfilePage() {
     })
       .then((res) => {
         if (res.ok) {
-          return res.json()
+          navigate(`/profile/${userId}`)
         } else {
           throw new Error('Errore nella response')
         }
-      })
-      .then((data) => {
-        console.log(data)
-        navigate(`/profile/${userId}`)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -121,7 +119,8 @@ function EditProfilePage() {
         }
       })
       .then((data) => {
-        console.log('USER', data)
+        // console.log('USER', data)
+        setLoading(false)
         setEditBody({
           ...editBody,
           bio: data.bio,
@@ -133,6 +132,7 @@ function EditProfilePage() {
         setProfileImage(data.profileImage)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE: ', err)
       })
   }
@@ -148,24 +148,28 @@ function EditProfilePage() {
         <div className="w-full">
           <div className="w-full flex flex-col lg:flex-row">
             <div className="w-full lg:w-1/3 h-full flex flex-col justify-between items-start">
-              <div
-                className="w-full aspect-square rounded-full overflow-hidden relative"
-                onClick={handleClick}
-              >
-                <img
-                  src={profileImage}
-                  alt="Basic profile"
-                  className="w-full h-full object-cover"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={fileInputRef}
-                  onChange={handleChange}
-                  style={{ display: 'none' }}
-                />
-                <div className="w-full h-full absolute top-0 left-0 hover:bg-black/60 z-1 transition-colors duration-220 cursor-pointer"></div>
-              </div>
+              {loading ? (
+                <div className="w-full aspect-square rounded-full bg-neutral-900 animate-pulse"></div>
+              ) : (
+                <div
+                  className="w-full aspect-square rounded-full overflow-hidden relative"
+                  onClick={handleClick}
+                >
+                  <img
+                    src={profileImage}
+                    alt="Basic profile"
+                    className="w-full h-full object-cover"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handleChange}
+                    style={{ display: 'none' }}
+                  />
+                  <div className="w-full h-full absolute top-0 left-0 hover:bg-black/60 z-1 transition-colors duration-220 cursor-pointer"></div>
+                </div>
+              )}
             </div>
             <div className="w-full lg:w-2/3 lg:ps-10 pt-15 lg:pt-0 flex flex-col justify-between items-end">
               <div className="w-full">

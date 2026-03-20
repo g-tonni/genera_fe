@@ -13,6 +13,8 @@ function EditProfileCoverPage() {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(true)
+
   const params = useParams()
 
   const token = useSelector((currState) => {
@@ -36,12 +38,14 @@ function EditProfileCoverPage() {
         }
       })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
+        setLoading(false)
         setCode({
           code: data.profileCoverSketch,
         })
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE: ', err)
       })
   }
@@ -77,6 +81,11 @@ function EditProfileCoverPage() {
       <NavbarEditProfileCover setPage={setPage} />
 
       <div className="w-full h-screen bg-black">
+        {loading && (
+          <div className="w-full h-full flex justify-center items-center">
+            <div className="w-1/3 aspect-square bg-neutral-900 animate-pulse"></div>
+          </div>
+        )}
         {page === 'canva' && (
           <div className="w-full h-full flex justify-center items-center">
             <P5IframeEditor p5Code={code?.code} />

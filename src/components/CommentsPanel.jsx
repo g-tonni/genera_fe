@@ -42,7 +42,7 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
         }
       })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         setComments(data)
         setCommentsNavbar(data.length)
       })
