@@ -21,6 +21,8 @@ function NavbarEditor({ project, setPage }) {
 
   const [followed, setFollowed] = useState(null)
 
+  const [loading, setLoading] = useState(true)
+
   const [appreciations, setAppreciations] = useState(null)
   const [appreciated, setAppreciated] = useState(false)
 
@@ -52,13 +54,15 @@ function NavbarEditor({ project, setPage }) {
         }
       })
       .then((data) => {
-        console.log('APPRECIATIONS ', data)
+        // console.log('APPRECIATIONS ', data)
+        setLoading(false)
         setAppreciations(data)
         const isAppreciated = data.some((app) => app.user.userId === userId)
 
         setAppreciated(isAppreciated)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE :', err)
       })
   }
@@ -116,7 +120,8 @@ function NavbarEditor({ project, setPage }) {
         }
       })
       .then((data) => {
-        console.log('CONNECTIONS 2', data)
+        // console.log('CONNECTIONS 2', data)
+        setLoading(false)
         const isFollowed = data.some(
           (user) => user.userId === project.author.userId,
         )
@@ -233,6 +238,7 @@ function NavbarEditor({ project, setPage }) {
 
         <div className="w-full lg:w-1/3 flex justify-end items-center text-gray-50/60">
           <div className="flex items-center">
+            {loading && <div className="h-4 w-4 bg-neutral-900 me-2" />}
             <p className="text-base font-semibold pe-1 lg:pe-2">
               {appreciations?.length}
             </p>
@@ -255,9 +261,13 @@ function NavbarEditor({ project, setPage }) {
             )}
           </div>
           <div className="flex items-center ps-4">
-            <p className="text-base font-semibold pe-1 lg:pe-2">
-              {commentsNavbar}
-            </p>
+            {loading ? (
+              <div className="h-4 w-4 bg-neutral-900 me-2" />
+            ) : (
+              <p className="text-base font-semibold pe-1 lg:pe-2">
+                {commentsNavbar}
+              </p>
+            )}
             <div
               onClick={() => {
                 if (panel === 'comments') {

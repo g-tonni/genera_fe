@@ -13,6 +13,11 @@ function NavbarMobile({ light }) {
 
   const [partialSearch, setPartialSearch] = useState('')
 
+  const [loading, setLoading] = useState(true)
+
+  const [projectsNumber, setProjectsNumber] = useState(null)
+  const [usersNumber, setUsersNumber] = useState(null)
+
   const [users, setUsers] = useState([])
   const [projects, setProjects] = useState([])
 
@@ -37,10 +42,13 @@ function NavbarMobile({ light }) {
         }
       })
       .then((data) => {
-        console.log('USERS', data)
+        // console.log('USERS', data)
+        setLoading(false)
+        setUsersNumber(data.totalElements)
         setUsers(data.content)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -60,10 +68,13 @@ function NavbarMobile({ light }) {
         }
       })
       .then((data) => {
-        console.log('PROJECTS', data)
+        // console.log('PROJECTS', data)
+        setLoading(false)
+        setProjectsNumber(data.totalElements)
         setProjects(data.content)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -154,11 +165,18 @@ function NavbarMobile({ light }) {
 
           {partialSearch.length >= 3 && (
             <div className="w-full fixed flex justify-center z-2 translate-y-14 text-gray-50/50 lg:hidden">
-              <div className="w-full sm:w-1/2 m-3 bg-neutral-900 p-5">
+              <div className="w-full sm:w-1/2 max-h-100 overflow-y-auto m-3 bg-neutral-900 p-5">
                 <div className="w-full pb-6">
                   <p className="font-semibold pb-3">
-                    Projects (<span>{projects.length}</span>)
+                    Projects (<span>{projectsNumber}</span>)
                   </p>
+                  {loading && (
+                    <>
+                      <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                      <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                      <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
+                    </>
+                  )}
                   {projects.length === 0 ? (
                     <div className="w-full border text-center py-3">
                       No projects found for your search
@@ -195,8 +213,15 @@ function NavbarMobile({ light }) {
                   )}
                 </div>
                 <p className="font-semibold pb-3">
-                  Users (<span>{users.length}</span>)
+                  Users (<span>{usersNumber}</span>)
                 </p>
+                {loading && (
+                  <>
+                    <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                    <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                    <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
+                  </>
+                )}
                 {users.length === 0 ? (
                   <div className="w-full border text-center py-3">
                     No users found for your search

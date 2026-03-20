@@ -13,6 +13,11 @@ function NavbarDesktop({ light }) {
   const [users, setUsers] = useState([])
   const [projects, setProjects] = useState([])
 
+  const [projectsNumber, setProjectsNumber] = useState(null)
+  const [usersNumber, setUsersNumber] = useState(null)
+
+  const [loading, setLoading] = useState(true)
+
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
@@ -34,10 +39,13 @@ function NavbarDesktop({ light }) {
         }
       })
       .then((data) => {
-        console.log('USERS', data)
+        // console.log('USERS', data)
+        setLoading(false)
         setUsers(data.content)
+        setUsersNumber(data.totalElements)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -57,10 +65,13 @@ function NavbarDesktop({ light }) {
         }
       })
       .then((data) => {
-        console.log('PROJECTS', data)
+        // console.log('PROJECTS', data)
+        setLoading(false)
         setProjects(data.content)
+        setProjectsNumber(data.totalElements)
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -148,11 +159,18 @@ function NavbarDesktop({ light }) {
 
       {partialSearch.length >= 3 && (
         <div className="w-1/3 z-2 fixed left-1/2 -translate-x-1/2 translate-y-20 lg:px-6 xl:px-8 text-gray-50/50 text-sm hidden lg:flex justify-center">
-          <div className="w-full 2xl:w-2/3 bg-neutral-900 p-5">
+          <div className="w-full 2xl:w-2/3 max-h-100 overflow-y-auto bg-neutral-900 p-5">
             <div className="w-full pb-6">
               <p className="font-semibold pb-3">
-                Projects (<span>{projects.length}</span>)
+                Projects (<span>{projectsNumber}</span>)
               </p>
+              {loading && (
+                <>
+                  <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                  <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                  <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
+                </>
+              )}
               {projects.length === 0 ? (
                 <div className="w-full border text-center py-3">
                   No projects found for your search
@@ -189,8 +207,15 @@ function NavbarDesktop({ light }) {
               )}
             </div>
             <p className="font-semibold pb-3">
-              Users (<span>{users.length}</span>)
+              Users (<span>{usersNumber}</span>)
             </p>
+            {loading && (
+              <>
+                <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
+                <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
+              </>
+            )}
             {users.length === 0 ? (
               <div className="w-full border text-center py-3">
                 No users found for your search

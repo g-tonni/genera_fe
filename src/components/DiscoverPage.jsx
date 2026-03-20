@@ -19,7 +19,7 @@ function DiscoverPage() {
   const token = localStorage.getItem('token')
 
   const getProjects = function () {
-    fetch(baseUrl + '?category=' + section, {
+    fetch(baseUrl + '?category=' + section + '&size=18', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -33,13 +33,13 @@ function DiscoverPage() {
         }
       })
       .then((data) => {
-        console.log(data)
-        setProjects(data)
+        //console.log(data)
         setLoading(false)
+        setProjects(data)
       })
       .catch((err) => {
-        console.log('ERRORE: ', err)
         setLoading(false)
+        console.log('ERRORE: ', err)
       })
   }
 

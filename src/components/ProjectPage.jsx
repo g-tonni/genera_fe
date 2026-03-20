@@ -6,11 +6,14 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import WhiteButton from './WhiteButton'
 import P5IframeEditor from './P5IframeEditor'
+import NavbarEditorSkeleton from './NavbarEditorSkeleton'
 
 function ProjectPage() {
   const [code, setCode] = useState(null)
 
   const [project, setProject] = useState(null)
+
+  const [loading, setLoading] = useState(true)
 
   const [page, setPage] = useState('canva')
 
@@ -63,13 +66,15 @@ function ProjectPage() {
         }
       })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
+        setLoading(false)
         setProject(data)
         setCode({
           code: data.script,
         })
       })
       .catch((err) => {
+        setLoading(false)
         console.log('ERRORE :', err)
       })
   }
@@ -81,6 +86,14 @@ function ProjectPage() {
 
   return (
     <>
+      {loading && (
+        <div className="h-screen max-h-screen w-full bg-black flex flex-col">
+          <NavbarEditorSkeleton />
+          <div className="w-full grow flex justify-center items-center">
+            <div className="w-1/3 aspect-square bg-neutral-900 animate-pulse"></div>
+          </div>
+        </div>
+      )}
       {project && (
         <>
           <NavbarEditor project={project} setPage={setPage} />
