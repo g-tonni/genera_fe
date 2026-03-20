@@ -254,10 +254,10 @@ function Homepage() {
         <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row lg:items-end lg:justify-between py-30">
           <div className="w-full lg:w-2/4 2xl:w-2/3 lg:pe-30 2xl:pe-80 pb-30 lg:pb-0">
             <div className="pb-20 lg:pb-30">
-              <p className="font-extrabold text-5xl md:text-6xl 2xl:text-7xl">
+              <p className="font-extrabold text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                 GENERATIVE ART
               </p>
-              <p className="text-xl pt-5">
+              <p className="text-lg 2xl:text-xl pt-5">
                 Trough code, randomness, and logic, each piece becomes a living
                 process-constantly changing, never exactly the same.
               </p>
@@ -280,10 +280,10 @@ function Homepage() {
         <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row-reverse lg:items-end lg:justify-between py-30">
           <div className="w-full lg:w-2/4 2xl:w-2/3 lg:ps-30 2xl:ps-80 pb-30 lg:pb-0">
             <div className="pb-20 lg:pb-30">
-              <p className="font-extrabold text-5xl md:text-6xl 2xl:text-7xl">
+              <p className="font-extrabold text-5xl md:text-6xl lg:text-5xl xl:text-6xl  2xl:text-7xl">
                 INTERACTIVE ART
               </p>
-              <p className="text-xl pt-5">
+              <p className="text-lg 2xl:text-xl pt-5">
                 Interaction turns the viewer into an active part of the artwork.
                 Input, movement, and exploration influences the system, creating
                 dynamic and unpredictable outcomes.
@@ -310,10 +310,10 @@ function Homepage() {
         <div className="w-full mx-auto px-12 md:px-20 xl:px-25 bottom-0 flex flex-col lg:flex-row lg:items-end lg:justify-between py-30">
           <div className="w-full lg:w-2/4 2xl:w-2/3 lg:pe-30 2xl:pe-80 pb-30 lg:pb-0">
             <div className="pb-20 lg:pb-30">
-              <p className="font-extrabold text-5xl md:text-6xl 2xl:text-7xl">
+              <p className="font-extrabold text-5xl md:text-6xl lg:text-5xl xl:text-6xl  2xl:text-7xl">
                 SPATIAL ART
               </p>
-              <p className="text-xl pt-5">
+              <p className="text-lg 2xl:text-xl pt-5">
                 3D expands generative creativity into space. Artists design
                 forms, environments and systems that evolve in depth, movement,
                 and perspective.

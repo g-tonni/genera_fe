@@ -8,6 +8,10 @@ import EditProfilePage from './components/EditProfilePage'
 import EditProjectInfoPage from './components/EditProjectInfoPage'
 import ProjectPage from './components/ProjectPage'
 import EditProfileCoverPage from './components/EditProfileCoverPage'
+import TermsPage from './components/TermsPage'
+import PrivacyPolicyPage from './components/PrivacyPolicyPage'
+import CookiesPage from './components/CookiesPage'
+import NotFoundPage from './components/NotFoundPage'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store/store'
@@ -34,6 +38,10 @@ function App() {
               path="/profile/:id/cover"
               element={<EditProfileCoverPage />}
             />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/cookies" element={<CookiesPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </Provider>
