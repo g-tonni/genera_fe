@@ -160,7 +160,10 @@ function NavbarDesktop({ light }) {
               ) : (
                 projects.map((projects) => {
                   return (
-                    <Link key={projects.projectId} to={'/'}>
+                    <Link
+                      key={projects.projectId}
+                      to={`/projects/${projects.projectId}`}
+                    >
                       <div className="w-full flex items-center hover:bg-gray-50/20 text-gray-50 p-2 transition-colors duration-220 cursor-pointer">
                         <div className="w-6 aspect-square overflow-hidden">
                           <img
