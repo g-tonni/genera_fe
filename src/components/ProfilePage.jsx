@@ -101,7 +101,7 @@ function ProfilePage() {
   }
 
   const getMyConnections = function () {
-    fetch(baseUrl + 'me/connections', {
+    fetch(baseUrl + params.id + '/connections', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -116,10 +116,7 @@ function ProfilePage() {
       })
       .then((data) => {
         console.log('CONNECTIONS', data)
-        const isFollowed = data.some((user) => user.userId === params.id)
-
-        setFollowed(isFollowed)
-        setConnections(data.length)
+        setConnections(data.content.length)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -127,7 +124,7 @@ function ProfilePage() {
   }
 
   const getMySupporters = function () {
-    fetch(baseUrl + 'me/supporters', {
+    fetch(baseUrl + params.id + '/supporters', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -142,7 +139,12 @@ function ProfilePage() {
       })
       .then((data) => {
         console.log('SUPPORTERS', data)
-        setSupporters(data.length)
+        const isFollowed = data.content.some(
+          (user) => user.follower.userId === userId,
+        )
+
+        setFollowed(isFollowed)
+        setSupporters(data.content.length)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -173,7 +175,7 @@ function ProfilePage() {
   }
 
   const getMyAppreciations = function () {
-    fetch(baseUrl + 'me/appreciations', {
+    fetch(baseUrl + params.id + '/appreciations', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -188,7 +190,7 @@ function ProfilePage() {
       })
       .then((data) => {
         console.log(data)
-        setAppreciations(data.length)
+        setAppreciations(data.content.length)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)

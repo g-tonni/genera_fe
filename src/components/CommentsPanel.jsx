@@ -77,12 +77,11 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
       })
   }
 
-  const deleteComment = function () {
+  const deleteComment = function (commentId) {
     fetch(url + '/' + commentId, {
       method: 'DELETE',
       headers: {
         Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
       },
     })
       .then((res) => {
@@ -151,8 +150,7 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
                         </div>
                         <div
                           onClick={() => {
-                            setCommentId(comment.commentId)
-                            deleteComment()
+                            deleteComment(comment.commentId)
                           }}
                         >
                           <MdDeleteForever

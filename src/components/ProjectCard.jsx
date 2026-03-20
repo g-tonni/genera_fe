@@ -111,7 +111,7 @@ function ProjectCard({ project, getProjects }) {
               className="w-full h-full object-cover"
             />
             <div
-              className={`bg-red-600/60 ${location.pathname === `/profile/${userId}` ? 'flex' : 'hidden'} hover:bg-red-600 absolute top-0 right-0 m-3 text-gray-50 p-1`}
+              className={`bg-red-600/60 ${location.pathname === `/profile/${userId}` && project.author.userId === userId ? 'flex' : 'hidden'} hover:bg-red-600 absolute top-0 right-0 m-3 text-gray-50 p-1`}
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
