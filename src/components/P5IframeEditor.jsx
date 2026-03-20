@@ -80,9 +80,9 @@ const P5IframeEditor = ({ p5Code }) => {
       `
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-dvh overflow-hidden bg-black">
       {/* Container p5 canvas */}
-      <div className="h-full relative">
+      <div className="w-full h-full relative">
         <iframe
           key={p5Code}
           ref={iframeRef}

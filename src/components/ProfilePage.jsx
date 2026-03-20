@@ -20,6 +20,11 @@ function ProfilePage() {
 
   const [followed, setFollowed] = useState(null)
 
+  const [connections, setConnections] = useState(null)
+  const [supporters, setSupporters] = useState(null)
+  const [appreciations, setAppreciations] = useState(null)
+  const [projects, setProjects] = useState(null)
+
   const [section, setSection] = useState('projects')
 
   const token = useSelector((currState) => {
@@ -114,6 +119,76 @@ function ProfilePage() {
         const isFollowed = data.some((user) => user.userId === params.id)
 
         setFollowed(isFollowed)
+        setConnections(data.length)
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
+  const getMySupporters = function () {
+    fetch(baseUrl + 'me/supporters', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log('SUPPORTERS', data)
+        setSupporters(data.length)
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
+  const getMyProjects = function () {
+    fetch(baseUrl + params.id + '/projects', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log(data)
+        setProjects(data.content.length)
+      })
+      .catch((err) => {
+        console.log('ERRORE: ', err)
+      })
+  }
+
+  const getMyAppreciations = function () {
+    fetch(baseUrl + 'me/appreciations', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .then((data) => {
+        console.log(data)
+        setAppreciations(data.length)
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -123,6 +198,9 @@ function ProfilePage() {
   useEffect(() => {
     getUser()
     getMyConnections()
+    getMySupporters()
+    getMyProjects()
+    getMyAppreciations()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, followed])
 
@@ -236,7 +314,9 @@ function ProfilePage() {
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
-                  <span className="text-base lg:text-lg font-bold">20</span>{' '}
+                  <span className="text-base lg:text-lg font-bold">
+                    {projects}
+                  </span>{' '}
                   Projects
                 </p>
               </div>
@@ -247,7 +327,9 @@ function ProfilePage() {
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
-                  <span className="text-base lg:text-lg font-bold">100</span>{' '}
+                  <span className="text-base lg:text-lg font-bold">
+                    {appreciations}
+                  </span>{' '}
                   Appreciations
                 </p>
               </div>
@@ -258,7 +340,9 @@ function ProfilePage() {
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
-                  <span className="text-base lg:text-lg font-bold">25</span>{' '}
+                  <span className="text-base lg:text-lg font-bold">
+                    {connections}
+                  </span>{' '}
                   Connections
                 </p>
               </div>
@@ -269,7 +353,9 @@ function ProfilePage() {
                 }}
               >
                 <p className="text-base lg:text-lg font-thin whitespace-nowrap">
-                  <span className="text-base lg:text-lg font-bold">15</span>{' '}
+                  <span className="text-base lg:text-lg font-bold">
+                    {supporters}
+                  </span>{' '}
                   Supporters
                 </p>
               </div>
@@ -279,7 +365,10 @@ function ProfilePage() {
 
         {/* SEZIONI */}
         {section === 'projects' && (
-          <ProfileProjectsSection section="projects" />
+          <ProfileProjectsSection
+            section="projects"
+            getMyProjects={getMyProjects}
+          />
         )}
         {section === 'appreciations' && (
           <ProfileProjectsSection section="appreciations" />

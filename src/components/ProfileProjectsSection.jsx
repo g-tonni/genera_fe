@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import WhiteButton from './WhiteButton'
 import { useSelector } from 'react-redux'
 
-function ProfileProjectsSection({ section }) {
+function ProfileProjectsSection({ section, getMyProjects }) {
   const [projects, setProjects] = useState(null)
 
   const [partialTitle, setPartialTitle] = useState('')
@@ -42,6 +42,7 @@ function ProfileProjectsSection({ section }) {
       .then((data) => {
         console.log(data)
         setProjects(data)
+        getMyProjects()
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
@@ -65,6 +66,7 @@ function ProfileProjectsSection({ section }) {
       .then((data) => {
         console.log(data)
         getProjects()
+        getMyProjects()
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
