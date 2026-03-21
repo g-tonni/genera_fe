@@ -5,11 +5,15 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import WhiteButton from './WhiteButton'
 import { useSelector } from 'react-redux'
+import { IoArrowBackOutline } from 'react-icons/io5'
+import { IoArrowForward } from 'react-icons/io5'
 
 function ProfileProjectsSection({ section, getMyProjects }) {
   const [projects, setProjects] = useState(null)
 
   const [partialTitle, setPartialTitle] = useState('')
+
+  const [page, setPage] = useState(0)
 
   const [loading, setLoading] = useState(true)
   const numberSkeleton = Array.from({ length: 12 })
@@ -29,12 +33,20 @@ function ProfileProjectsSection({ section, getMyProjects }) {
   })
 
   const getProjects = function () {
-    fetch(baseUrl + section + '?partialTitle=' + partialTitle + '&size=18', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
+    fetch(
+      baseUrl +
+        section +
+        '?partialTitle=' +
+        partialTitle +
+        '&size=12&page=' +
+        page,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
       },
-    })
+    )
       .then((res) => {
         if (res.ok) {
           return res.json()
@@ -43,7 +55,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
         }
       })
       .then((data) => {
-        // console.log('PROFILE PROJECT SECTION', data)
+        console.log('PROFILE PROJECT SECTION', data)
         setLoading(false)
         setProjects(data)
         getMyProjects()
@@ -79,10 +91,10 @@ function ProfileProjectsSection({ section, getMyProjects }) {
   useEffect(() => {
     getProjects()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section, partialTitle, params.id])
+  }, [section, partialTitle, params.id, page])
 
   return (
-    <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50 min-h-screen">
+    <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50 pb-30 min-h-screen">
       {/*  BARRA RICERCA */}
       <div className="w-full flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <div
@@ -119,7 +131,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
       </div>
 
       {/* SEZIONE CARD */}
-      <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2">
+      <div className="w-full min-h-210 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 pb-20">
         {loading &&
           numberSkeleton.map((_, i) => {
             return <ProjectCardSkeleton key={i} />
@@ -144,6 +156,36 @@ function ProfileProjectsSection({ section, getMyProjects }) {
               />
             )
           })}
+      </div>
+      <div className="w-full flex justify-center items-center">
+        <div className="flex justify-between items-center">
+          <div className="w-6 h-6 me-6">
+            <div
+              className={`${page === 0 ? 'hidden' : 'flex'}`}
+              onClick={() => {
+                setPage(page - 1)
+              }}
+            >
+              <IoArrowBackOutline className="h-full w-6 flex hover:text-gray-50 text-gray-50/60 transition-colors duration-150 cursor-pointer" />
+            </div>
+          </div>
+          <div>
+            <p className="text-lg text-gray-50/60 font-semibold">
+              <span className="text-gray-50">{page + 1}</span> of{' '}
+              {projects?.totalPages}
+            </p>
+          </div>
+          <div className="w-6 h-6 ms-6">
+            <div
+              className={`${page === projects?.totalPages - 1 ? 'hidden' : 'flex'}`}
+              onClick={() => {
+                setPage(page + 1)
+              }}
+            >
+              <IoArrowForward className="h-full w-6 flex hover:text-gray-50 text-gray-50/60 transition-colors duration-150 cursor-pointer" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

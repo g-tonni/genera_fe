@@ -4,6 +4,8 @@ import UserCardSkeleton from './UserCardSkeleton'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { IoArrowBackOutline } from 'react-icons/io5'
+import { IoArrowForward } from 'react-icons/io5'
 
 function ProfileUsersSection({ section }) {
   const [users, setUsers] = useState(null)
@@ -15,13 +17,15 @@ function ProfileUsersSection({ section }) {
 
   const params = useParams()
 
+  const [page, setPage] = useState(0)
+
   const baseUrl = 'http://localhost:3001/users/' + params.id + '/' + section
 
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
   const getUsers = function () {
-    fetch(baseUrl + '?partialName=' + partialName, {
+    fetch(baseUrl + '?partialName=' + partialName + '&size=15&page=' + page, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -35,7 +39,7 @@ function ProfileUsersSection({ section }) {
         }
       })
       .then((data) => {
-        // console.log('USERS', data)
+        console.log('USERS', data)
         setLoading(false)
         setUsers(data)
       })
@@ -48,7 +52,7 @@ function ProfileUsersSection({ section }) {
   useEffect(() => {
     getUsers()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section, partialName, params.id])
+  }, [section, partialName, params.id, page])
 
   return (
     <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col items-end text-gray-50 min-h-screen">
@@ -87,6 +91,37 @@ function ProfileUsersSection({ section }) {
           users.content.map((user) => {
             return <UserCard user={user.follower} key={user.follower.userId} />
           })}
+      </div>
+
+      <div className="w-full flex justify-center items-center">
+        <div className="flex justify-between items-center">
+          <div className="w-6 h-6 me-6">
+            <div
+              className={`${page === 0 ? 'hidden' : 'flex'}`}
+              onClick={() => {
+                setPage(page - 1)
+              }}
+            >
+              <IoArrowBackOutline className="h-full w-6 flex hover:text-gray-50 text-gray-50/60 transition-colors duration-150 cursor-pointer" />
+            </div>
+          </div>
+          <div>
+            <p className="text-lg text-gray-50/60 font-semibold">
+              <span className="text-gray-50">{page + 1}</span> of{' '}
+              {users?.totalPages}
+            </p>
+          </div>
+          <div className="w-6 h-6 ms-6">
+            <div
+              className={`${page === users?.totalPages - 1 ? 'hidden' : 'flex'}`}
+              onClick={() => {
+                setPage(page + 1)
+              }}
+            >
+              <IoArrowForward className="h-full w-6 flex hover:text-gray-50 text-gray-50/60 transition-colors duration-150 cursor-pointer" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
