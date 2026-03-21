@@ -1,10 +1,10 @@
-import NavbarDesktop from "./NavbarDesktop";
-import NavbarMobile from "./NavbarMobile";
-import FooterDesktop from "./FooterDesktop";
-import OutlineButton from "./OutlineButton";
-import P5Iframe from "./P5Iframe";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import NavbarDesktop from './NavbarDesktop'
+import NavbarMobile from './NavbarMobile'
+import FooterDesktop from './FooterDesktop'
+import OutlineButton from './OutlineButton'
+import P5Iframe from './P5Iframe'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const sketchCode = `
 let pos;
@@ -94,43 +94,38 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   background(0);
 }
-`;
+`
 
 function RegisterPage() {
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [body, setBody] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+    name: '',
+    email: '',
+    password: '',
+  })
 
-  const url = "http://localhost:3001/auth/register";
+  const url = 'http://localhost:3001/auth/register'
 
   const register = function (body) {
     fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     })
       .then((res) => {
         if (res.ok) {
-          return res.json();
+          navigate(`/login`)
         } else {
-          throw new Error("Errore nella response");
+          throw new Error('Errore nella response')
         }
       })
-      .then((data) => {
-        console.log(data);
-        navigate(`/login`);
-      })
       .catch((err) => {
-        console.log("ERRORE: ", err);
-      });
-  };
+        console.log('ERRORE: ', err)
+      })
+  }
 
   return (
     <>
@@ -144,15 +139,15 @@ function RegisterPage() {
           <div className="w-full sm:w-3/4 lg:w-1/2 xl:w-1/3 2xl:w-1/4 px-10 py-15 bg-neutral-900 text-gray-50">
             <p className="font-semibold text-2xl">Join Genera</p>
             <p className="text-xs pb-10">
-              Already have an account?{" "}
-              <Link to={"/login"} className="font-bold">
+              Already have an account?{' '}
+              <Link to={'/login'} className="font-bold">
                 Sign in
               </Link>
             </p>
             <form
               onSubmit={(e) => {
-                e.preventDefault();
-                register(body);
+                e.preventDefault()
+                register(body)
               }}
             >
               <label className="text-gray-50/50 font-semibold">Name</label>
@@ -164,7 +159,7 @@ function RegisterPage() {
                   setBody({
                     ...body,
                     name: e.target.value,
-                  });
+                  })
                 }}
               />
               <label className="text-gray-50/50 font-semibold">Email</label>
@@ -176,7 +171,7 @@ function RegisterPage() {
                   setBody({
                     ...body,
                     email: e.target.value,
-                  });
+                  })
                 }}
               />
               <label className="text-gray-50/50 font-semibold">Password</label>
@@ -188,16 +183,16 @@ function RegisterPage() {
                   setBody({
                     ...body,
                     password: e.target.value,
-                  });
+                  })
                 }}
               />
               <p className="text-xs pb-3">
-                By joining Genera, you agree to the{" "}
-                <Link to={"/"} className="font-bold">
+                By joining Genera, you agree to the{' '}
+                <Link to={'/terms'} className="font-bold">
                   Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link to={"/"} className="font-bold">
+                </Link>{' '}
+                and{' '}
+                <Link to={'/privacy'} className="font-bold">
                   Privacy Policy
                 </Link>
               </p>
@@ -212,7 +207,7 @@ function RegisterPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default RegisterPage;
+export default RegisterPage

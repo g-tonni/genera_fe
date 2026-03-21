@@ -15,6 +15,7 @@ function FooterDesktop() {
   const [visible, setVisible] = useState(!isDelayPage)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisible(!isDelayPage)
 
     if (!isDelayPage) return
