@@ -36,37 +36,51 @@ function MobileMenu({ panel, light }) {
       <hr className="border border-gray-50/10 w-full" />
 
       <div className=" w-full p-8 sm:px-15 md:px-20 flex flex-col">
-        <p className="text-gray-50/40 text-lg pb-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
-          Terms
-        </p>
-        <p className="text-gray-50/40 text-lg pb-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
-          Privacy Policy
-        </p>
-        <p className="text-gray-50/40 text-lg hover:text-gray-50 transition-colors duration-150 cursor-pointer">
-          Cookies
-        </p>
+        <Link to={'/terms'}>
+          <p className="text-gray-50/40 text-lg pb-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
+            Terms
+          </p>
+        </Link>
+        <Link to={'/privacy'}>
+          <p className="text-gray-50/40 text-lg pb-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
+            Privacy Policy
+          </p>
+        </Link>
+        <Link to={'/cookies'}>
+          <p className="text-gray-50/40 text-lg hover:text-gray-50 transition-colors duration-150 cursor-pointer">
+            Cookies
+          </p>
+        </Link>
       </div>
 
       <hr className="border border-gray-50/10 w-full" />
 
       <div className=" w-full p-8 sm:px-15 md:px-20 flex flex-col">
-        <p className="text-gray-50/40 text-lg pb-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
-          Feedback
-        </p>
-        <p className="text-gray-50/40 text-lg hover:text-gray-50 transition-colors duration-150 cursor-pointer">
-          Contact
-        </p>
+        <Link to={'/'}>
+          <p className="text-gray-50/40 text-lg pb-4 hover:text-gray-50 transition-colors duration-150 cursor-pointer">
+            Feedback
+          </p>
+        </Link>
+        <Link to={'/'}>
+          <p className="text-gray-50/40 text-lg hover:text-gray-50 transition-colors duration-150 cursor-pointer">
+            Contact
+          </p>
+        </Link>
       </div>
 
       <hr className="border border-gray-50/10 w-full" />
 
       <div className="w-full p-8 sm:px-15 md:px-20 flex text-gray-50/40 justify-between">
         <div className="w-1/2 flex items-center">
-          <FaDiscord className="w-6 h-6 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
-
-          <FaFacebookSquare className="w-7 h-7 ps-3 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
-
-          <FaInstagramSquare className="w-7 h-7 ps-3 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+          <Link to={'/'}>
+            <FaDiscord className="w-6 h-6 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+          </Link>
+          <Link to={'/'}>
+            <FaFacebookSquare className="w-7 h-7 ps-3 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+          </Link>
+          <Link to={'/'}>
+            <FaInstagramSquare className="w-7 h-7 ps-3 hover:text-gray-50 transition-colors duration-150 cursor-pointer" />
+          </Link>
         </div>
 
         <div className="w-1/2 flex justify-end">
