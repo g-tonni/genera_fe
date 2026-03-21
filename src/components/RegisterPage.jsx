@@ -1,7 +1,6 @@
 import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 import FooterDesktop from './FooterDesktop'
-import OutlineButton from './OutlineButton'
 import P5Iframe from './P5Iframe'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
