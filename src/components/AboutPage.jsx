@@ -13,8 +13,8 @@ function AboutPage() {
       <NavbarMobile light="About" />
       <FooterDesktop />
 
-      <div className="w-full bg-black text-gray-50/70 min-h-screen flex flex-col font-thin py-40">
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-30">
+      <div className="w-full bg-black text-gray-50/70 min-h-screen flex flex-col font-thin pt-20 pb-40 lg:py-40">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-20 lg:py-30">
           <div className="w-full lg:w-1/3">
             <p className="font-extrabold text-4xl md:text-5xl 2xl:text-6xl">
               OUR VISION
@@ -31,7 +31,7 @@ function AboutPage() {
           </div>
         </div>
 
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-30">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-20 lg:py-30">
           <div className="w-full lg:w-1/3">
             <p className="font-extrabold text-4xl md:text-5xl 2xl:text-6xl">
               WHAT IS <span className="italic">GENERA</span>?
@@ -48,17 +48,17 @@ function AboutPage() {
           </div>
         </div>
 
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-30">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-20 lg:py-30">
           <div className="w-full lg:w-1/3">
             <p className="font-extrabold text-4xl md:text-5xl 2xl:text-6xl">
               WHY ARE WE HERE?
             </p>
           </div>
           <div className="w-full lg:w-2/3 lg:ps-20 2xl:ps-80">
-            <p className="text-lg lg:text-xl pb-5">
+            <p className="pt-10 lg:pt-0 text-lg lg:text-xl pb-5">
               Our mission is to democratize code-based digital art:
             </p>
-            <div className="flex pt-10 lg:pt-0 text-lg lg:text-xl pb-5">
+            <div className="flex text-lg lg:text-xl pb-5">
               <p className="font-semibold pe-5">1.</p>
               <p className="">
                 <span className="font-semibold">Create:</span> We provide a
@@ -67,7 +67,7 @@ function AboutPage() {
                 code.
               </p>
             </div>
-            <div className="flex pt-10 lg:pt-0 text-lg lg:text-xl pb-5">
+            <div className="flex text-lg lg:text-xl pb-5">
               <p className="font-semibold pe-5">2.</p>
               <p className="">
                 <span className="font-semibold">Share:</span> We believe in the
@@ -75,7 +75,7 @@ function AboutPage() {
                 can create with a draw() function.
               </p>
             </div>
-            <div className="flex pt-10 lg:pt-0 text-lg lg:text-xl pb-5">
+            <div className="flex text-lg lg:text-xl pb-5">
               <p className="font-semibold pe-5">3.</p>
               <p className="">
                 <span className="font-semibold">Learn & Inspire:</span> Explore
@@ -87,7 +87,7 @@ function AboutPage() {
           </div>
         </div>
 
-        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-30">
+        <div className="w-full mx-auto px-12 md:px-20 xl:px-25 flex flex-col lg:flex-row lg:items-center justify-between py-20 lg:py-30">
           <div className="w-full lg:w-1/3">
             <p className="font-extrabold text-4xl md:text-5xl 2xl:text-6xl">
               WHO IS THIS PLATFORM FOR?

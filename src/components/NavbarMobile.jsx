@@ -13,8 +13,6 @@ function NavbarMobile({ light }) {
 
   const [partialSearch, setPartialSearch] = useState('')
 
-  const [loading, setLoading] = useState(true)
-
   const [projectsNumber, setProjectsNumber] = useState(null)
   const [usersNumber, setUsersNumber] = useState(null)
 
@@ -43,12 +41,11 @@ function NavbarMobile({ light }) {
       })
       .then((data) => {
         // console.log('USERS', data)
-        setLoading(false)
+
         setUsersNumber(data.totalElements)
         setUsers(data.content)
       })
       .catch((err) => {
-        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -69,12 +66,11 @@ function NavbarMobile({ light }) {
       })
       .then((data) => {
         // console.log('PROJECTS', data)
-        setLoading(false)
+
         setProjectsNumber(data.totalElements)
         setProjects(data.content)
       })
       .catch((err) => {
-        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -170,13 +166,7 @@ function NavbarMobile({ light }) {
                   <p className="font-semibold pb-3">
                     Projects (<span>{projectsNumber}</span>)
                   </p>
-                  {loading && (
-                    <>
-                      <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                      <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                      <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
-                    </>
-                  )}
+
                   {projects.length === 0 ? (
                     <div className="w-full border text-center py-3">
                       No projects found for your search
@@ -215,13 +205,7 @@ function NavbarMobile({ light }) {
                 <p className="font-semibold pb-3">
                   Users (<span>{usersNumber}</span>)
                 </p>
-                {loading && (
-                  <>
-                    <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                    <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                    <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
-                  </>
-                )}
+
                 {users.length === 0 ? (
                   <div className="w-full border text-center py-3">
                     No users found for your search

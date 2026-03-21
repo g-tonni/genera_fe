@@ -16,8 +16,6 @@ function NavbarDesktop({ light }) {
   const [projectsNumber, setProjectsNumber] = useState(null)
   const [usersNumber, setUsersNumber] = useState(null)
 
-  const [loading, setLoading] = useState(true)
-
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
@@ -40,12 +38,11 @@ function NavbarDesktop({ light }) {
       })
       .then((data) => {
         // console.log('USERS', data)
-        setLoading(false)
+
         setUsers(data.content)
         setUsersNumber(data.totalElements)
       })
       .catch((err) => {
-        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -66,12 +63,10 @@ function NavbarDesktop({ light }) {
       })
       .then((data) => {
         // console.log('PROJECTS', data)
-        setLoading(false)
         setProjects(data.content)
         setProjectsNumber(data.totalElements)
       })
       .catch((err) => {
-        setLoading(false)
         console.log('ERROR', err)
       })
   }
@@ -164,13 +159,6 @@ function NavbarDesktop({ light }) {
               <p className="font-semibold pb-3">
                 Projects (<span>{projectsNumber}</span>)
               </p>
-              {loading && (
-                <>
-                  <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                  <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                  <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
-                </>
-              )}
               {projects.length === 0 ? (
                 <div className="w-full border text-center py-3">
                   No projects found for your search
@@ -209,13 +197,6 @@ function NavbarDesktop({ light }) {
             <p className="font-semibold pb-3">
               Users (<span>{usersNumber}</span>)
             </p>
-            {loading && (
-              <>
-                <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                <div className="h-5 w-full bg-neutral-900 animate-pulse mb-3"></div>
-                <div className="h-5 w-full bg-neutral-900 animate-pulse"></div>
-              </>
-            )}
             {users.length === 0 ? (
               <div className="w-full border text-center py-3">
                 No users found for your search
