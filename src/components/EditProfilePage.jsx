@@ -31,6 +31,26 @@ function EditProfilePage() {
 
   const navigate = useNavigate()
 
+  const [errors, setErrors] = useState(null)
+
+  const getErrors = function (errorsList, keyword) {
+    return errorsList.filter((error) => {
+      return error.toLowerCase().includes(keyword.toLowerCase())
+    })
+  }
+
+  const normalizeErrors = (data) => {
+    if (data.errorsList && Array.isArray(data.errorsList)) {
+      return data.errorsList
+    }
+
+    if (data.error) {
+      return [data.error]
+    }
+
+    return ['An unexpected error occurred.']
+  }
+
   const [file, setFile] = useState(null)
   const [imageModal, setImageModal] = useState(false)
   const [preview, setPreview] = useState(null)
@@ -92,11 +112,15 @@ function EditProfilePage() {
       },
       body: JSON.stringify(body),
     })
-      .then((res) => {
+      .then(async (res) => {
+        const data = await res.json()
+
         if (res.ok) {
           navigate(`/profile/${userId}`)
         } else {
-          throw new Error('Errore nella response')
+          const errorOrErrors = normalizeErrors(data)
+          setErrors(errorOrErrors)
+          throw data
         }
       })
       .catch((err) => {
@@ -179,12 +203,13 @@ function EditProfilePage() {
                     e.preventDefault()
                     editUser(editBody)
                   }}
+                  noValidate
                 >
                   <label className="font-semibold">Name</label>
                   <input
                     type="text"
                     placeholder="New name..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editBody.name}
                     onChange={(e) => {
                       setEditBody({
@@ -193,11 +218,18 @@ function EditProfilePage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">Bio</label>
+                  {errors && getErrors(errors, 'name').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'name').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">Bio</label>
                   <input
                     type="text"
                     placeholder="New bio..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editBody.bio}
                     onChange={(e) => {
                       setEditBody({
@@ -206,11 +238,18 @@ function EditProfilePage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">Location</label>
+                  {errors && getErrors(errors, 'bio').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'bio').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">Location</label>
                   <input
                     type="text"
                     placeholder="New location..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editBody.location}
                     onChange={(e) => {
                       setEditBody({
@@ -219,11 +258,18 @@ function EditProfilePage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">Website</label>
+                  {errors && getErrors(errors, 'location').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'location').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">Website</label>
                   <input
                     type="text"
                     placeholder="New website..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editBody.website}
                     onChange={(e) => {
                       setEditBody({
@@ -232,11 +278,18 @@ function EditProfilePage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">Email</label>
+                  {errors && getErrors(errors, 'website').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'website').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">Email</label>
                   <input
                     type="email"
                     placeholder="New email..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editBody.email}
                     onChange={(e) => {
                       setEditBody({
@@ -245,11 +298,18 @@ function EditProfilePage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">Password</label>
+                  {errors && getErrors(errors, 'email').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'email').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">Password</label>
                   <input
                     type="password"
                     placeholder="New password..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editBody.password}
                     onChange={(e) => {
                       setEditBody({
@@ -258,6 +318,13 @@ function EditProfilePage() {
                       })
                     }}
                   />
+                  {errors && getErrors(errors, 'password').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'password').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
                 </form>
               </div>
             </div>

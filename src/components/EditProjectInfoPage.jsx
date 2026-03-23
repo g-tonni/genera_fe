@@ -19,6 +19,26 @@ function EditProjectInfoPage() {
 
   const navigate = useNavigate()
 
+  const [errors, setErrors] = useState(null)
+
+  const getErrors = function (errorsList, keyword) {
+    return errorsList.filter((error) => {
+      return error.toLowerCase().includes(keyword.toLowerCase())
+    })
+  }
+
+  const normalizeErrors = (data) => {
+    if (data.errorsList && Array.isArray(data.errorsList)) {
+      return data.errorsList
+    }
+
+    if (data.error) {
+      return [data.error]
+    }
+
+    return ['An unexpected error occurred.']
+  }
+
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
@@ -118,11 +138,15 @@ function EditProjectInfoPage() {
       },
       body: JSON.stringify(editProject),
     })
-      .then((res) => {
+      .then(async (res) => {
+        const data = await res.json()
+
         if (res.ok) {
           navigate(`/projects/${project.projectId}`)
         } else {
-          throw new Error('Errore nella response')
+          const errorOrErrors = normalizeErrors(data)
+          setErrors(errorOrErrors)
+          throw data
         }
       })
       .catch((err) => {
@@ -167,17 +191,19 @@ function EditProjectInfoPage() {
             <div className="w-full lg:w-1/2 aspect-square lg:ps-10 pt-15 lg:pt-0 flex flex-col justify-between items-end">
               <div className="w-full h-full flex flex-col justify-between items-end">
                 <form
+                  className="w-full"
                   id="editForm"
                   onSubmit={(e) => {
                     e.preventDefault()
                     editProjectInfo()
                   }}
+                  noValidate
                 >
                   <label className="font-semibold">Title</label>
                   <input
                     type="text"
                     placeholder="New title..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editProject.title}
                     onChange={(e) => {
                       setEditProject({
@@ -186,11 +212,20 @@ function EditProjectInfoPage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">Description</label>
+                  {errors && getErrors(errors, 'title').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'title').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">
+                    Description
+                  </label>
                   <input
                     type="text"
                     placeholder="New description..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editProject.description}
                     onChange={(e) => {
                       setEditProject({
@@ -199,11 +234,20 @@ function EditProjectInfoPage() {
                       })
                     }}
                   />
-                  <label className="font-semibold">How to interact</label>
+                  {errors && getErrors(errors, 'description').length > 0 && (
+                    <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                      {getErrors(errors, 'description').map((error) => {
+                        return <p>{error}</p>
+                      })}
+                    </div>
+                  )}
+                  <label className="block font-semibold mt-10">
+                    How to interact
+                  </label>
                   <input
                     type="text"
                     placeholder="New how to interact..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                     value={editProject.howToInteract}
                     onChange={(e) => {
                       setEditProject({
@@ -212,7 +256,15 @@ function EditProjectInfoPage() {
                       })
                     }}
                   />
-                  <label className="font-semibold block">Category</label>
+                  {errors &&
+                    getErrors(errors, 'how to interact').length > 0 && (
+                      <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                        {getErrors(errors, 'how to interact').map((error) => {
+                          return <p>{error}</p>
+                        })}
+                      </div>
+                    )}
+                  <label className="font-semibold block mt-10">Category</label>
                   <select
                     name="category"
                     className="w-full p-2 mt-3 focus:outline-none border border-gray-50/30"

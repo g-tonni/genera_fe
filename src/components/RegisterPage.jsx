@@ -98,6 +98,26 @@ function windowResized() {
 function RegisterPage() {
   const navigate = useNavigate()
 
+  const [errors, setErrors] = useState(null)
+
+  const getErrors = function (errorsList, keyword) {
+    return errorsList.filter((error) => {
+      return error.toLowerCase().includes(keyword.toLowerCase())
+    })
+  }
+
+  const normalizeErrors = (data) => {
+    if (data.errorsList && Array.isArray(data.errorsList)) {
+      return data.errorsList
+    }
+
+    if (data.error) {
+      return [data.error]
+    }
+
+    return ['An unexpected error occurred.']
+  }
+
   const [body, setBody] = useState({
     name: '',
     email: '',
@@ -114,17 +134,24 @@ function RegisterPage() {
       },
       body: JSON.stringify(body),
     })
-      .then((res) => {
+      .then(async (res) => {
+        const data = await res.json()
+
         if (res.ok) {
           navigate(`/login`)
         } else {
-          throw new Error('Errore nella response')
+          const errorOrErrors = normalizeErrors(data)
+          setErrors(errorOrErrors)
+          throw data
         }
       })
       .catch((err) => {
         console.log('ERRORE: ', err)
       })
   }
+  /* 
+  console.log(errors)
+  console.log(getErrors(errors, 'name')) */
 
   return (
     <>
@@ -148,11 +175,12 @@ function RegisterPage() {
                 e.preventDefault()
                 register(body)
               }}
+              noValidate
             >
               <label className="text-gray-50/50 font-semibold">Name</label>
               <input
                 type="text"
-                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                 value={body.name}
                 onChange={(e) => {
                   setBody({
@@ -161,10 +189,19 @@ function RegisterPage() {
                   })
                 }}
               />
-              <label className="text-gray-50/50 font-semibold">Email</label>
+              {errors && getErrors(errors, 'name').length > 0 && (
+                <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                  {getErrors(errors, 'name').map((error) => {
+                    return <p>{error}</p>
+                  })}
+                </div>
+              )}
+              <label className="block text-gray-50/50 font-semibold mt-10">
+                Email
+              </label>
               <input
                 type="email"
-                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-10"
+                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                 value={body.email}
                 onChange={(e) => {
                   setBody({
@@ -173,10 +210,19 @@ function RegisterPage() {
                   })
                 }}
               />
-              <label className="text-gray-50/50 font-semibold">Password</label>
+              {errors && getErrors(errors, 'email').length > 0 && (
+                <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                  {getErrors(errors, 'email').map((error) => {
+                    return <p>{error}</p>
+                  })}
+                </div>
+              )}
+              <label className="block text-gray-50/50 font-semibold pt-10">
+                Password
+              </label>
               <input
                 type="password"
-                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3 mb-15"
+                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
                 value={body.password}
                 onChange={(e) => {
                   setBody({
@@ -185,7 +231,14 @@ function RegisterPage() {
                   })
                 }}
               />
-              <p className="text-xs pb-3">
+              {errors && getErrors(errors, 'password').length > 0 && (
+                <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
+                  {getErrors(errors, 'password').map((error) => {
+                    return <p>{error}</p>
+                  })}
+                </div>
+              )}
+              <p className="text-xs pt-15 pb-3">
                 By joining Genera, you agree to the{' '}
                 <Link to={'/terms'} className="font-bold">
                   Terms of Service
