@@ -167,6 +167,7 @@ function EditProfilePage() {
       .catch((err) => {
         setLoading(false)
         console.log('ERRORE: ', err)
+        navigate('/404')
       })
   }
 

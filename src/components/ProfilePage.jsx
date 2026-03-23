@@ -9,12 +9,14 @@ import { FaLink } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import ProfileProjectsSection from './ProfileProjectsSection'
 import ProfileUsersSection from './ProfileUsersSection'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RiImageEditFill } from 'react-icons/ri'
 
 function ProfilePage() {
   const params = useParams()
+
+  const navigate = useNavigate()
 
   const baseUrl = 'http://localhost:3001/users/'
 
@@ -80,7 +82,8 @@ function ProfilePage() {
       })
       .catch((err) => {
         setLoading(false)
-        console.log('ERRORE: ', err)
+        console.log('Errore nel caricamento profilo:', err)
+        navigate('/404', { replace: true })
       })
   }
 

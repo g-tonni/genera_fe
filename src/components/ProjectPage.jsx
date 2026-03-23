@@ -1,7 +1,7 @@
 import NavbarEditor from './NavbarEditor'
 import ProjectInfo from './ProjectInfo'
 import P5Editor from './P5Editor'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import WhiteButton from './WhiteButton'
@@ -12,6 +12,8 @@ function ProjectPage() {
   const [code, setCode] = useState(null)
 
   const [project, setProject] = useState(null)
+
+  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(true)
 
@@ -76,6 +78,7 @@ function ProjectPage() {
       .catch((err) => {
         setLoading(false)
         console.log('ERRORE :', err)
+        navigate('/404')
       })
   }
 

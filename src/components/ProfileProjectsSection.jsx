@@ -55,7 +55,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
         }
       })
       .then((data) => {
-        console.log('PROFILE PROJECT SECTION', data)
+        // console.log('PROFILE PROJECT SECTION', data)
         setLoading(false)
         setProjects(data)
         getMyProjects()

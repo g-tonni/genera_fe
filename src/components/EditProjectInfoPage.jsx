@@ -126,6 +126,7 @@ function EditProjectInfoPage() {
       .catch((err) => {
         setLoading(false)
         console.log('ERRORE :', err)
+        navigate('/404')
       })
   }
 
