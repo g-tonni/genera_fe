@@ -106,7 +106,7 @@ function ProjectCard({ project, getProjects }) {
 
   return (
     <>
-      <Link to={`/projects/${project.projectId}`}>
+      <Link to={token ? `/projects/${project.projectId}` : '/register'}>
         <div className="w-full hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer">
           <div className="w-full aspect-square overflow-hidden relative">
             <img

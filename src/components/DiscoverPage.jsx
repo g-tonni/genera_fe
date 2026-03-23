@@ -20,15 +20,8 @@ function DiscoverPage() {
 
   const baseUrl = 'http://localhost:3001/projects'
 
-  const token = localStorage.getItem('token')
-
   const getProjects = function () {
-    fetch(baseUrl + '?category=' + section + '&size=18&page=' + page, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
+    fetch(baseUrl + '?category=' + section + '&size=18&page=' + page)
       .then((res) => {
         if (res.ok) {
           return res.json()
