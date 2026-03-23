@@ -208,10 +208,53 @@ import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 import FooterDesktop from './FooterDesktop'
 import FadeInSection from './FadeInSection'
+import { addToken, addUserId } from '../redux/actions/loginAction'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 function Homepage() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const token = useSelector((currState) => {
+    return currState.authReducer.token
+  })
+
+  const verifyToken = function () {
+    if (token) {
+      fetch('http://localhost:3001/auth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token }),
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json()
+          } else {
+            throw new Error('Errore nella response')
+          }
+        })
+        .then((data) => {
+          console.log(data)
+          if (!data.validatedToken) {
+            localStorage.removeItem('token')
+            localStorage.removeItem('userId')
+            dispatch(addToken(null))
+            dispatch(addUserId(null))
+            navigate('/')
+          }
+        })
+        .catch((err) => {
+          console.log('ERRORE :', err)
+        })
+    }
+  }
+
+  useEffect(() => {
+    verifyToken()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, token)
 
   return (
     <>
