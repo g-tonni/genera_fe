@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import OutlineButton from './OutlineButton'
+import { addToken, addUserId } from '../redux/actions/loginAction'
 
 function EditProfilePage() {
   const params = useParams()
@@ -31,6 +32,8 @@ function EditProfilePage() {
 
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
+
   const [errors, setErrors] = useState(null)
 
   const getErrors = function (errorsList, keyword) {
@@ -50,6 +53,8 @@ function EditProfilePage() {
 
     return ['An unexpected error occurred.']
   }
+
+  const [deleteProfileModal, setDeleteProfileModal] = useState(false)
 
   const [file, setFile] = useState(null)
   const [imageModal, setImageModal] = useState(false)
@@ -158,6 +163,29 @@ function EditProfilePage() {
       .catch((err) => {
         setLoading(false)
         console.log('ERRORE: ', err)
+      })
+  }
+
+  const deleteUser = function () {
+    fetch(baseUrl + 'me', {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          localStorage.removeItem('token')
+          localStorage.removeItem('userId')
+          dispatch(addToken(null))
+          dispatch(addUserId(null))
+          navigate('/')
+        } else {
+          throw new Error('Errore nella response')
+        }
+      })
+      .catch((err) => {
+        console.log('ERRORE :', err)
       })
   }
 
@@ -330,7 +358,12 @@ function EditProfilePage() {
             </div>
           </div>
           <div className="w-full flex justify-between pt-15">
-            <button className="font-semibold text-red-700 border-3 border-red-700 hover:bg-red-700 hover:text-black transition-colors duration-150 cursor-pointer py-2 px-6">
+            <button
+              className="font-semibold text-red-700 border-3 border-red-700 hover:bg-red-700 hover:text-black transition-colors duration-150 cursor-pointer py-2 px-6"
+              onClick={() => {
+                setDeleteProfileModal(true)
+              }}
+            >
               DELETE PROFILE
             </button>
             <button
@@ -370,6 +403,43 @@ function EditProfilePage() {
               >
                 <OutlineButton text="SAVE" size="md" />
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {deleteProfileModal && (
+        <div className="w-full h-screen bg-black/70 absolute top-0 flex justify-center items-center z-2">
+          <div className="w-full mx-12 md:mx-0 md:w-3/4 lg:w-2/3 xl:w-3/5 2xl:w-1/3 bg-black flex flex-col justify-between items-center p-10  border border-gray-50/10">
+            <div className="w-full mb-15">
+              <p className="text-gray-50 text-lg font-thin">
+                Are you sure you want to{' '}
+                <span className="font-bold text-red-600 text-xl">
+                  delete your account
+                </span>
+                ? All data and sketches{' '}
+                <span className="font-bold text-red-600 text-xl">
+                  will be lost
+                </span>
+                .
+              </p>
+            </div>
+            <div className="w-full flex justify-between">
+              <div
+                onClick={() => {
+                  setDeleteProfileModal(false)
+                }}
+              >
+                <OutlineButton text="CANCEL" size="md" />
+              </div>
+              <button
+                className="font-semibold text-red-700 border-3 border-red-700 hover:bg-red-700 hover:text-black transition-colors duration-150 cursor-pointer py-2 px-6"
+                onClick={() => {
+                  deleteUser()
+                }}
+              >
+                DELETE PROFILE
+              </button>
             </div>
           </div>
         </div>
