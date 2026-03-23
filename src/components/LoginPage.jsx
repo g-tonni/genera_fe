@@ -2,6 +2,8 @@ import NavbarDesktop from './NavbarDesktop'
 import NavbarMobile from './NavbarMobile'
 import FooterDesktop from './FooterDesktop'
 import P5Iframe from './P5Iframe'
+import { FaRegEye } from 'react-icons/fa6'
+import { FaRegEyeSlash } from 'react-icons/fa6'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -98,6 +100,8 @@ function windowResized() {
 `
 
 function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false)
+
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
@@ -203,17 +207,39 @@ function LoginPage() {
               <label className="block text-gray-50/50 font-semibold mt-10">
                 Password
               </label>
-              <input
-                type="password"
-                className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
-                value={body.password}
-                onChange={(e) => {
-                  setBody({
-                    ...body,
-                    password: e.target.value,
-                  })
-                }}
-              />
+              <div className="w-full relative">
+                {showPassword && (
+                  <div
+                    className="absolute bottom-0 right-0 pb-1 text-gray-50/60 hover:text-gray-50 transition-colors duration-150 cursor-pointer"
+                    onClick={() => {
+                      setShowPassword(false)
+                    }}
+                  >
+                    <FaRegEye />
+                  </div>
+                )}
+                {showPassword === false && (
+                  <div
+                    className="absolute bottom-0 right-0 pb-1 text-gray-50/60 hover:text-gray-50 transition-colors duration-150 cursor-pointer"
+                    onClick={() => {
+                      setShowPassword(true)
+                    }}
+                  >
+                    <FaRegEyeSlash />
+                  </div>
+                )}
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
+                  value={body.password}
+                  onChange={(e) => {
+                    setBody({
+                      ...body,
+                      password: e.target.value,
+                    })
+                  }}
+                />
+              </div>
               {errors && getErrors(errors, 'password').length > 0 && (
                 <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
                   {getErrors(errors, 'password').map((error) => {

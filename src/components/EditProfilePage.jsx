@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { FaRegEye } from 'react-icons/fa6'
+import { FaRegEyeSlash } from 'react-icons/fa6'
 import OutlineButton from './OutlineButton'
 import { addToken, addUserId } from '../redux/actions/loginAction'
 
 function EditProfilePage() {
+  const [showPassword, setShowPassword] = useState(false)
+
   const params = useParams()
 
   const baseUrl = 'http://localhost:3001/users/'
@@ -334,18 +338,40 @@ function EditProfilePage() {
                     </div>
                   )}
                   <label className="block font-semibold mt-10">Password</label>
-                  <input
-                    type="password"
-                    placeholder="New password..."
-                    className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
-                    value={editBody.password}
-                    onChange={(e) => {
-                      setEditBody({
-                        ...editBody,
-                        password: e.target.value,
-                      })
-                    }}
-                  />
+                  <div className="w-full relative">
+                    {showPassword && (
+                      <div
+                        className="absolute bottom-0 right-0 pb-1 text-gray-50/60 hover:text-gray-50 transition-colors duration-150 cursor-pointer"
+                        onClick={() => {
+                          setShowPassword(false)
+                        }}
+                      >
+                        <FaRegEye />
+                      </div>
+                    )}
+                    {showPassword === false && (
+                      <div
+                        className="absolute bottom-0 right-0 pb-1 text-gray-50/60 hover:text-gray-50 transition-colors duration-150 cursor-pointer"
+                        onClick={() => {
+                          setShowPassword(true)
+                        }}
+                      >
+                        <FaRegEyeSlash />
+                      </div>
+                    )}
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="***************"
+                      className="w-full text-gray-50 focus:outline-none border-b border-gray-50/30 pt-3"
+                      value={editBody.password}
+                      onChange={(e) => {
+                        setEditBody({
+                          ...editBody,
+                          password: e.target.value,
+                        })
+                      }}
+                    />
+                  </div>
                   {errors && getErrors(errors, 'password').length > 0 && (
                     <div className="border border-red-600/40 bg-red-600/5 p-3 mt-3 text-red-600/80 text-xs">
                       {getErrors(errors, 'password').map((error) => {
