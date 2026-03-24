@@ -2,6 +2,7 @@ import { VscAccount } from 'react-icons/vsc'
 import { IoSearch } from 'react-icons/io5'
 import { IoMenuSharp } from 'react-icons/io5'
 import { useState, useEffect } from 'react'
+import WhiteButton from './WhiteButton'
 import { Link } from 'react-router-dom'
 
 import MobileMenu from './MobileMenu'
@@ -159,7 +160,22 @@ function NavbarMobile({ light }) {
             </div>
           </div>
 
-          {partialSearch.length >= 3 && (
+          {partialSearch.length >= 3 && !token && (
+            <div className="w-full fixed flex justify-center z-2 translate-y-14 text-gray-50/50 lg:hidden">
+              <div className="w-full sm:w-1/2 max-h-100 overflow-y-auto m-3 bg-neutral-900 p-5">
+                <div className="w-full">
+                  <p className="pb-5">
+                    Want to search for artists and sketches on our site?
+                  </p>
+                  <Link to={'/register'}>
+                    <WhiteButton text="JOIN GENERA" size="lg" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {partialSearch.length >= 3 && token && (
             <div className="w-full fixed flex justify-center z-2 translate-y-14 text-gray-50/50 lg:hidden">
               <div className="w-full sm:w-1/2 max-h-100 overflow-y-auto m-3 bg-neutral-900 p-5">
                 <div className="w-full pb-6">

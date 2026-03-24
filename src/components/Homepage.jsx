@@ -173,8 +173,8 @@ function setup() {
   oldWidth = width;
   oldHeight = height;
   background(0);
-  curves.push(new OrganicCurve(random(200, 800), random(255), 50)); 
-  curves.push(new OrganicCurve(random(200, 800), random(255), random(255))); 
+  curves.push(new OrganicCurve(random(200, 1000), random(255), 50)); 
+  curves.push(new OrganicCurve(random(200, 1000), random(255), random(255))); 
 }
 
 function draw() {

@@ -3,6 +3,7 @@ import { IoSearch } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import DesktopProfilePanel from './DesktopProfilePanel'
+import WhiteButton from './WhiteButton'
 import { useSelector } from 'react-redux'
 
 function NavbarDesktop({ light }) {
@@ -152,7 +153,22 @@ function NavbarDesktop({ light }) {
         </div>
       </div>
 
-      {partialSearch.length >= 3 && (
+      {partialSearch.length >= 3 && !token && (
+        <div className="w-1/3 z-2 fixed left-1/2 -translate-x-1/2 translate-y-20 lg:px-6 xl:px-8 text-gray-50/80 hidden lg:flex justify-center">
+          <div className="w-full 2xl:w-1/2 max-h-100 overflow-y-auto bg-neutral-900 p-5 flex justify-center">
+            <div className="w-full">
+              <p className="pb-5">
+                Want to search for artists and sketches on our site?
+              </p>
+              <Link to={'/register'}>
+                <WhiteButton text="JOIN GENERA" size="lg" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {partialSearch.length >= 3 && token && (
         <div className="w-1/3 z-2 fixed left-1/2 -translate-x-1/2 translate-y-20 lg:px-6 xl:px-8 text-gray-50/50 text-sm hidden lg:flex justify-center">
           <div className="w-full 2xl:w-2/3 max-h-100 overflow-y-auto bg-neutral-900 p-5">
             <div className="w-full pb-6">
