@@ -378,7 +378,7 @@ function Homepage() {
           }
         })
         .then((data) => {
-          console.log(data)
+          // console.log(data)
           if (!data.validatedToken) {
             localStorage.removeItem('token')
             localStorage.removeItem('userId')

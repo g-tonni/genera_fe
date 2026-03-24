@@ -173,11 +173,9 @@ function ProjectCard({ project, getProjects }) {
         <div className="w-screen h-screen -translate-x-12 md:-translate-x-20 xl:-translate-x-25 bg-black/70 fixed top-0 flex justify-center items-center z-2">
           <div className="w-full mx-12 md:mx-0 md:w-3/4 lg:w-2/3 xl:w-3/5 2xl:w-1/3 bg-black flex flex-col justify-between items-center p-10  border border-gray-50/10">
             <div className="w-full flex">
-              <p className="font-thin w-full lg:w-1/2 text-lg">
-                Are you sure you want to delete <br />
-                <span className="font-semibold text-xl">
-                  {project.title}
-                </span>{' '}
+              <p className="font-thin w-full lg:w-1/2 text-lg pe-3">
+                Are you sure you want to delete{' '}
+                <span className="font-semibold text-xl">{project.title}</span>{' '}
                 project?
               </p>
               <div className="w-full lg:w-1/2 aspect-square overflow-hidden mb-15">

@@ -39,7 +39,7 @@ function ProfileUsersSection({ section }) {
         }
       })
       .then((data) => {
-        console.log('USERS', data)
+        // console.log('USERS', data)
         setLoading(false)
         setUsers(data)
       })
