@@ -172,14 +172,16 @@ function ProfileProjectsSection({ section, getMyProjects }) {
             </div>
           </div>
           <div>
-            <p className="text-lg text-gray-50/60 font-semibold">
+            <p
+              className={`text-lg text-gray-50/60 font-semibold ${projects?.totalPages === 0 ? 'hidden' : 'block'}`}
+            >
               <span className="text-gray-50">{page + 1}</span> of{' '}
               {projects?.totalPages}
             </p>
           </div>
           <div className="w-6 h-6 ms-6">
             <div
-              className={`${page === projects?.totalPages - 1 ? 'hidden' : 'flex'}`}
+              className={`${page === projects?.totalPages - 1 || projects?.totalPages === 0 ? 'hidden' : 'flex'}`}
               onClick={() => {
                 setPage(page + 1)
               }}
