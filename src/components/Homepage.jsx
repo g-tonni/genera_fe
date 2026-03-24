@@ -363,9 +363,13 @@ function Homepage() {
     return currState.authReducer.token
   })
 
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/auth/token`
+
   const verifyToken = function () {
     if (token) {
-      fetch('http://localhost:3001/auth/token', {
+      fetch(baseUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: token }),

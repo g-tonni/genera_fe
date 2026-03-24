@@ -24,7 +24,9 @@ function ProjectCard({ project, getProjects }) {
 
   const location = useLocation()
 
-  const commentsUrl = `http://localhost:3001/projects/${project.projectId}/comments`
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const commentsUrl = `${API_URL}/projects/${project.projectId}/comments`
 
   const getComments = function () {
     fetch(commentsUrl, {
@@ -51,7 +53,7 @@ function ProjectCard({ project, getProjects }) {
       })
   }
 
-  const appreciationsUrl = `http://localhost:3001/projects/${project.projectId}/appreciations`
+  const appreciationsUrl = `${API_URL}/projects/${project.projectId}/appreciations`
 
   const getAppreciations = function () {
     fetch(appreciationsUrl, {
@@ -76,7 +78,7 @@ function ProjectCard({ project, getProjects }) {
       })
   }
 
-  const deleteProjectUrl = `http://localhost:3001/projects/${project.projectId}`
+  const deleteProjectUrl = `${API_URL}/projects/${project.projectId}`
 
   const deleteProject = function () {
     fetch(deleteProjectUrl, {

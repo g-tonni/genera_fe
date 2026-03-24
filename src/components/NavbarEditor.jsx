@@ -36,8 +36,10 @@ function NavbarEditor({ project, setPage }) {
     return currState.authReducer.userId
   })
 
-  const appreciationsUrl = `http://localhost:3001/projects/${params.id}/appreciations`
-  const connectionsBaseUrl = 'http://localhost:3001/users/'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const appreciationsUrl = `${API_URL}/projects/${params.id}/appreciations`
+  const connectionsBaseUrl = `${API_URL}/users/`
 
   const getAppreciations = function () {
     fetch(appreciationsUrl, {

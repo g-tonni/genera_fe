@@ -29,7 +29,9 @@ function ProjectPage() {
     return currState.authReducer.userId
   })
 
-  const baseUrl = 'http://localhost:3001/projects/'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/projects/`
 
   const updateCode = function () {
     fetch(baseUrl + params.id + '/sketch', {

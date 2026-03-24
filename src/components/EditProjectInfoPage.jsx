@@ -43,7 +43,9 @@ function EditProjectInfoPage() {
     return currState.authReducer.token
   })
 
-  const baseUrl = 'http://localhost:3001/projects/'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/projects/`
 
   const [file, setFile] = useState(null)
   const [imageModal, setImageModal] = useState(false)

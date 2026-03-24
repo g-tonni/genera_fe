@@ -25,7 +25,9 @@ function CommentsPanel({ panel, setCommentsNavbar }) {
     return currState.authReducer.userId
   })
 
-  const url = `http://localhost:3001/projects/${params.id}/comments`
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const url = `${API_URL}/projects/${params.id}/comments`
 
   const getComments = function () {
     fetch(url, {

@@ -20,9 +20,11 @@ function ProfileProjectsSection({ section, getMyProjects }) {
 
   const params = useParams()
 
-  const baseUrl = 'http://localhost:3001/users/' + params.id + '/'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
 
-  const newProjectUrl = 'http://localhost:3001/projects'
+  const baseUrl = `${API_URL}/users/${params.id}/`
+
+  const newProjectUrl = `${API_URL}/projects`
 
   const token = useSelector((currState) => {
     return currState.authReducer.token

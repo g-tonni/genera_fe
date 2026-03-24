@@ -18,7 +18,9 @@ function DiscoverPage() {
 
   const [projects, setProjects] = useState(null)
 
-  const baseUrl = 'http://localhost:3001/projects'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/projects`
 
   const getProjects = function () {
     fetch(baseUrl + '?category=' + section + '&size=18&page=' + page)

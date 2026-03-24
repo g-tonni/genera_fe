@@ -19,11 +19,14 @@ function ProfileUsersSection({ section }) {
 
   const [page, setPage] = useState(0)
 
-  const baseUrl = 'http://localhost:3001/users/' + params.id + '/' + section
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/users/${params.id}/${section}`
 
   const token = useSelector((currState) => {
     return currState.authReducer.token
   })
+
   const getUsers = function () {
     fetch(baseUrl + '?partialName=' + partialName + '&size=15&page=' + page, {
       method: 'GET',
@@ -106,14 +109,16 @@ function ProfileUsersSection({ section }) {
             </div>
           </div>
           <div>
-            <p className="text-lg text-gray-50/60 font-semibold">
+            <p
+              className={`text-lg text-gray-50/60 font-semibold ${users?.totalPages === 0 ? 'hidden' : 'block'}`}
+            >
               <span className="text-gray-50">{page + 1}</span> of{' '}
               {users?.totalPages}
             </p>
           </div>
           <div className="w-6 h-6 ms-6">
             <div
-              className={`${page === users?.totalPages - 1 ? 'hidden' : 'flex'}`}
+              className={`${page === users?.totalPages - 1 || users?.totalPages === 0 ? 'hidden' : 'flex'}`}
               onClick={() => {
                 setPage(page + 1)
               }}

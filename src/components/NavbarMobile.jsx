@@ -24,7 +24,9 @@ function NavbarMobile({ light }) {
     return currState.authReducer.token
   })
 
-  const baseUrl = 'http://localhost:3001/'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/`
 
   const getUsers = function () {
     fetch(baseUrl + 'users?partialName=' + partialSearch, {

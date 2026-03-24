@@ -131,7 +131,9 @@ function LoginPage() {
     password: '',
   })
 
-  const url = 'http://localhost:3001/auth/login'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const url = `${API_URL}/auth/login`
 
   const login = function (body) {
     fetch(url, {

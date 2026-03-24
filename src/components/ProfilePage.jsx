@@ -18,7 +18,9 @@ function ProfilePage() {
 
   const navigate = useNavigate()
 
-  const baseUrl = 'http://localhost:3001/users/'
+  const API_URL = import.meta.env.VITE_API_BASE_URL
+
+  const baseUrl = `${API_URL}/users/`
 
   const [loading, setLoading] = useState(true)
 
