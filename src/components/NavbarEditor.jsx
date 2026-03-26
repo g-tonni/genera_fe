@@ -14,7 +14,7 @@ import DesktopProfilePanel from './DesktopProfilePanel'
 import CommentsPanel from './CommentsPanel'
 import MobileProfilePanel from './MobileProfilePanel'
 
-function NavbarEditor({ project, setPage }) {
+function NavbarEditor({ project, setPage, setRefreshKey }) {
   const [panel, setPanel] = useState('canva')
 
   const params = useParams()
@@ -211,6 +211,7 @@ function NavbarEditor({ project, setPage }) {
             className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('canva')
+              setRefreshKey(prev => prev + 1)
               if (panel === 'canva') {
                 setPanel('')
               } else {

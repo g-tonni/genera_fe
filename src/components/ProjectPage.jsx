@@ -18,6 +18,7 @@ function ProjectPage() {
   const [loading, setLoading] = useState(true)
 
   const [page, setPage] = useState('canva')
+  const [refreshKey, setRefreshKey] = useState(0)
 
   const params = useParams()
 
@@ -101,13 +102,13 @@ function ProjectPage() {
       )}
       {project && (
         <>
-          <NavbarEditor project={project} setPage={setPage} />
+          <NavbarEditor project={project} setPage={setPage} setRefreshKey={setRefreshKey} />
 
           <div className="w-full h-screen bg-black">
             {page === 'info' && <ProjectInfo project={project} />}
             {page === 'canva' && (
               <div className="w-full h-full flex justify-center items-center">
-                <P5IframeEditor p5Code={code.code} />
+                <P5IframeEditor p5Code={code.code} refreshKey={refreshKey} />
               </div>
             )}
             {page === 'code' && (

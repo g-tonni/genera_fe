@@ -10,6 +10,7 @@ function EditProfileCoverPage() {
   const [code, setCode] = useState(null)
 
   const [page, setPage] = useState('canva')
+  const [refreshKey, setRefreshKey] = useState(0)
 
   const navigate = useNavigate()
 
@@ -81,7 +82,7 @@ function EditProfileCoverPage() {
 
   return (
     <>
-      <NavbarEditProfileCover setPage={setPage} />
+      <NavbarEditProfileCover setPage={setPage} setRefreshKey={setRefreshKey} />
 
       <div className="w-full h-screen bg-black">
         {loading && (
@@ -91,7 +92,7 @@ function EditProfileCoverPage() {
         )}
         {page === 'canva' && (
           <div className="w-full h-full flex justify-center items-center">
-            <P5IframeEditor p5Code={code?.code} />
+            <P5IframeEditor p5Code={code?.code} refreshKey={refreshKey}/>
           </div>
         )}
         {page === 'code' && (

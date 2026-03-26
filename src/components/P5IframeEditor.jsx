@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { CgTerminal } from 'react-icons/cg'
 import NavbarEditorSkeleton from './NavbarEditorSkeleton'
 
-const P5IframeEditor = ({ p5Code }) => {
+const P5IframeEditor = ({ p5Code, refreshKey }) => {
   const iframeRef = useRef(null)
   const [errors, setErrors] = useState([])
 
@@ -95,7 +95,7 @@ const P5IframeEditor = ({ p5Code }) => {
       {/* Container p5 canvas */}
       <div className="w-full h-full relative">
         <iframe
-          key={p5Code}
+          key={refreshKey}
           ref={iframeRef}
           srcDoc={srcDoc}
           onLoad={() => setIsLoaded(true)}

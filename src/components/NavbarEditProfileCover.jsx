@@ -7,7 +7,7 @@ import { FaPlay } from 'react-icons/fa'
 import DesktopProfilePanel from './DesktopProfilePanel'
 import MobileProfilePanel from './MobileProfilePanel'
 
-function NavbarEditProfileCover({ setPage }) {
+function NavbarEditProfileCover({ setPage, setRefreshKey }) {
   const [panel, setPanel] = useState('canva')
 
   const token = useSelector((currState) => {
@@ -41,6 +41,7 @@ function NavbarEditProfileCover({ setPage }) {
             className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('canva')
+              setRefreshKey(prev => prev + 1)
               if (panel === 'canva') {
                 setPanel('')
               } else {
