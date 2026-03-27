@@ -270,6 +270,7 @@ function EditProjectInfoPage() {
                   <label className="font-semibold block mt-10">Category</label>
                   <select
                     name="category"
+                    value={editProject.category}
                     className="w-full p-2 mt-3 focus:outline-none border border-gray-50/30"
                     onChange={(e) => {
                       setEditProject({

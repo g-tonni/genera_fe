@@ -133,7 +133,7 @@ function ProfileProjectsSection({ section, getMyProjects }) {
       </div>
 
       {/* SEZIONE CARD */}
-      <div className="w-full min-h-210 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 pb-20">
+      <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 pb-20">
         {loading &&
           numberSkeleton.map((_, i) => {
             return <ProjectCardSkeleton key={i} />

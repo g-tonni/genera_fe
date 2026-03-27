@@ -73,7 +73,7 @@ function UserCard({ user }) {
 
   return (
     <div
-      className="w-full flex items-center hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer"
+      className="w-full flex items-center hover:bg-gray-50/20 p-2 transition-colors duration-220 cursor-pointer mb-2"
       onClick={() => {
         navigate(`/profile/${user.userId}`)
       }}

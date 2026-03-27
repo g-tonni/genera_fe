@@ -27,9 +27,11 @@ function ProjectInfo({ project }) {
                   <p className="text-5xl font-bold">{project.title}</p>
                   <p className="text-2xl font-thin pt-4 italic pb-10">
                     by{' '}
-                    <span className="text-2xl font-medium">
-                      {project.author.username}
-                    </span>
+                    <Link to={`/profile/${project.author.userId}`}>
+                      <span className="text-2xl font-medium text-gray-50/80 hover:text-gray-50">
+                        {project.author.username}
+                      </span>
+                    </Link>
                   </p>
                 </div>
                 {project.description && project.description !== '' && (

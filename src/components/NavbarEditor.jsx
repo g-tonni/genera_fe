@@ -158,7 +158,7 @@ function NavbarEditor({ project, setPage, setRefreshKey }) {
             </Link>
           </div>
           <div className="flex text-gray-50/60 items-center">
-            <p className="ps-4 font-semibold lg:text-lg text-gray-50/80">
+            <p className="ps-4 font-semibold text-xs lg:text-lg text-gray-50/80">
               {project.title}{' '}
               <Link to={`/profile/${project.author.userId}`}>
                 <span className="font-thin text-xs lg:text-sm text-gray-50/60 hover:text-gray-50/80 hidden sm:inline-block">
@@ -211,7 +211,7 @@ function NavbarEditor({ project, setPage, setRefreshKey }) {
             className="pe-2 lg:pe-4"
             onClick={() => {
               setPage('canva')
-              setRefreshKey(prev => prev + 1)
+              setRefreshKey((prev) => prev + 1)
               if (panel === 'canva') {
                 setPanel('')
               } else {

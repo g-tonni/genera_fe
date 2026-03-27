@@ -130,7 +130,7 @@ function ProjectCard({ project, getProjects }) {
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="font-bold border-b border-gray-50/30 py-4">
+            <p className="w-full font-bold border-b border-gray-50/30 py-4 truncate">
               {project.title}
             </p>
             <div className="flex items-center py-4 justify-between text-gray-50/70">

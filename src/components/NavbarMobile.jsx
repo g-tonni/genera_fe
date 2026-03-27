@@ -112,7 +112,7 @@ function NavbarMobile({ light }) {
         >
           <IoMenuSharp className="h-full w-8" />
         </div>
-        <div className="h-full w-5">
+        <div className="h-full w-5 flex items-center">
           <div
             className={`${light === 'search' ? 'text-gray-50' : 'text-gray-50/60'} hover:text-gray-50 transition-colors duration-150 cursor-pointer`}
             onClick={() => {
