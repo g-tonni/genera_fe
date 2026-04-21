@@ -2,4 +2,4 @@
 
 Back-end link: https://github.com/g-tonni/GENERA_BE.git
 
-Vercel link: https://genera-fe-7yb2.vercel.app/
+Vercel link: https://genera-fe.vercel.app/
